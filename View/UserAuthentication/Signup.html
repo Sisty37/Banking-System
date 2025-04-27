@@ -3,19 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <title>Signup</title>
+  <link rel="stylesheet" href="SignUp.css">
 </head>
 <body>
-  <h2>Signup</h2>
-  <form action="/signup" method="POST"  onsubmit="validateSignupForm(event)" >  
-    <input type="text" name="name" placeholder="Full Name" required><br><br>
-    <input type="email" name="email" placeholder="Email" required><br><br>
-    <input type="password" name="password" placeholder="Password" required><br><br>
-    <input type="password" name="confirm_password" placeholder="Confirm Password" required><br><br>
-    <button type="submit">Signup</button>
-  </form>
-  <p><a href="/login">Already have an account? Login</a></p>
+  <div class="form-container">
+    <h2>Signup</h2>
+    <form action="/signup" method="POST" onsubmit="validateSignupForm(event)">
+      <!-- Reordered fields -->
+      <input type="text" id="signup-name" name="name" placeholder="Full Name" required><br>
+      <input type="email" id="signup-email" name="email" placeholder="Email" required><br>
+      <input type="date" name="dob" required><br>
+      <input type="password" id="signup-password" name="password" placeholder="Password" required><br>
+      <input type="password" id="signup-confirm-password" name="confirm_password" placeholder="Confirm Password" required><br>
 
-  <!-- Link the validation.js file here -->
-  <script src="UserAuthentication.js"></script>
+      <button type="submit">Signup</button>
+    </form>
+    <p><a href="/login">Already have an account? Login</a></p>
+  </div>
+
+  <script src="UserAuthentication.js"></script> 
 </body>
 </html>
+
+ 
+ 
