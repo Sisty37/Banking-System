@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Permission Settings</title>
+  <link rel="stylesheet" href="../../Styles/RoleBasedAccess/roleBasedAccess.css">
+</head>
+<body>
+
+  <h2>Permission Settings</h2>
+
+  <div class="permission-list">
+    <div class="permission-item">
+      <label for="dashboard">Dashboard Access:</label>
+      <select id="dashboard">
+        <option>Allowed</option>
+        <option>Restricted</option>
+      </select>
+    </div>
+
+    <div class="permission-item">
+      <label for="manage-users">Manage Users:</label>
+      <select id="manage-users">
+        <option>Allowed</option>
+        <option>Restricted</option>
+      </select>
+    </div>
+
+    <div class="permission-item">
+      <label for="settings">Settings Access:</label>
+      <select id="settings">
+        <option>Allowed</option>
+        <option>Restricted</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="save-btn" onclick="savePermissions()">Save Permissions</button>
+
+  <script src="../../JS/RoleBasedAccess.js"></script>
+</body>
+</html>
+
