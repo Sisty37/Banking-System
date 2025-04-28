@@ -1,3 +1,4 @@
+// Show error with alert and prevent form submit
 function showError(message, event) {
   alert(message);
   event.preventDefault();
@@ -21,16 +22,17 @@ function validateLoginForm(event) {
   }
 }
 
-// Validate Signup Form
+// ✅ Updated: Validate Signup Form
 function validateSignupForm(event) {
-  const name = document.getElementById('signup-name')?.value.trim();
+  const firstName = document.getElementById('signup-first-name')?.value.trim();
+  const lastName = document.getElementById('signup-last-name')?.value.trim();
   const email = document.getElementById('signup-email')?.value.trim();
   const password = document.getElementById('signup-password')?.value;
   const confirmPassword = document.getElementById('signup-confirm-password')?.value;
   const dob = document.getElementById('signup-dob')?.value;
 
   // Check if all fields are filled
-  if (!name || !email || !password || !confirmPassword || !dob) {
+  if (!firstName || !lastName || !email || !password || !confirmPassword || !dob) {
       showError('Please fill out all fields.', event);
   } else if (!isValidEmail(email)) {
       showError('Please enter a valid email address.', event);

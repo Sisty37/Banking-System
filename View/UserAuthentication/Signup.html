@@ -3,16 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <title>Signup</title>
-  <link rel="stylesheet" href="SignUp.css">
+  <link rel="stylesheet" href="../../Styles/UserAuthentication/SignUp.css">
 </head>
 <body>
   <div class="form-container">
     <h2>Signup</h2>
     <form action="/signup" method="POST" onsubmit="validateSignupForm(event)">
-      
-      <input type="text" id="signup-name" name="name" placeholder="Full Name" required><br>
+
+      <input type="text" id="signup-first-name" name="first_name" placeholder="First Name" required><br>
+      <input type="text" id="signup-last-name" name="last_name" placeholder="Last Name" required><br>
       <input type="email" id="signup-email" name="email" placeholder="Email" required><br>
-      <input type="date" name="dob" required><br>
+      <input type="date" id="signup-dob" name="dob" required><br>
       <input type="password" id="signup-password" name="password" placeholder="Password" required><br>
       <input type="password" id="signup-confirm-password" name="confirm_password" placeholder="Confirm Password" required><br>
 
@@ -24,6 +25,3 @@
   <script src="UserAuthentication.js"></script> 
 </body>
 </html>
-
- 
- 
