@@ -10,7 +10,8 @@
   <div class="login-container">
     <h2>Login</h2>
 
-    <form action="/login" method="POST" onsubmit="validateLoginForm(event)">
+    <!-- <form action="../../PHP/UserAuthentication/Login.php" method="POST" onsubmit="validateLoginForm(event)"></form> -->
+    <form action="../../PHP/UserAuthentication/Login.php" method="POST">
       <input type="email" id="login-email" name="email" placeholder="Email" required><br><br>
       <input type="password" id="login-password" name="password" placeholder="Password" required><br><br>
       <p><a href="../../View/UserAuthentication/ForgotPassword.html">Forgot Password?</a></p>
@@ -20,6 +21,6 @@
     <p><a href="../../View/UserAuthentication/SignUp.html">Don't have an account? Signup</a></p>
   </div>
 
-  <script src="UserAuthentication.js"></script>
+  <!-- <script src="UserAuthentication.js"></script> -->
 </body>
 </html>
