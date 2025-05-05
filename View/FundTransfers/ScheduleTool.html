@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Schedule Tool</title>
+  <link rel="stylesheet" href="../../Styles/FundTransfers/ScheduleTool.css" />
+</head>
+<body>
+  <div class="container">
+    <h2 class="heading">Schedule a Transfer</h2>
+    <form>
+      <div class="form-card">
+        <div class="form-group">
+          <label for="startDate" class="form-label">Start Date</label>
+          <input type="date" class="form-control" id="startDate" required />
+        </div>
+        <div class="form-group">
+          <label for="frequency" class="form-label">Frequency</label>
+          <select id="frequency" class="form-control" required>
+            <option value="">Select Frequency</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+            <option value="quarterly">Quarterly</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="endDate" class="form-label">End Date</label>
+          <input type="date" class="form-control" id="endDate" />
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-submit">Schedule</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <script src="../../JS/FundTransfers.js"></script>
+</body>
+</html>
