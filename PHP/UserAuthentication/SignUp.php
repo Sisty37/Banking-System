@@ -1,41 +1,45 @@
 <?php
+session_start();
+
+// Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $firstName = trim($_POST["first_name"]);
-    $lastName = trim($_POST["last_name"]);
-    $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
-    $password = $_POST["password"];
-    $confirmPassword = $_POST["confirm_password"];
+    // Sanitize input to avoid XSS attacks
+    $first_name = htmlspecialchars(trim($_POST["first_name"]));
+    $last_name = htmlspecialchars(trim($_POST["last_name"]));
+    $email = filter_var(trim($_POST["email"]), FILTER_VALIDATE_EMAIL);
     $dob = $_POST["dob"];
-
-    $errors = [];
-
-    // Validate required fields
-    if (empty($firstName) || empty($lastName) || empty($email) || empty($password) || empty($confirmPassword) || empty($dob)) {
-        $errors[] = "All fields are required.";
-    }
+    $password = $_POST["password"];
+    $confirm_password = $_POST["confirm_password"];
 
     // Validate email
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "Invalid email address.";
+    if (!$email) {
+        die("Invalid email format.");
     }
 
-    // Validate password length
-    if (strlen($password) < 6) {
-        $errors[] = "Password must be at least 6 characters.";
+    // Check if passwords match
+    if ($password !== $confirm_password) {
+        die("Passwords do not match.");
     }
 
-    // Check password match
-    if ($password !== $confirmPassword) {
-        $errors[] = "Passwords do not match.";
-    }
+    // Hash the password for security
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    if (empty($errors)) {
-        echo "<p style='color:green;'>Signup successful (but not stored yet)!</p>";
-        // Store in database here (with hashing)
-    } else {
-        foreach ($errors as $error) {
-            echo "<p style='color:red;'>$error</p>";
-        }
-    }
+    // Simulate user creation (You should replace this with actual database logic)
+    // For now, save the user's data in session for demonstration purposes
+    $_SESSION['user'] = [
+        "first_name" => $first_name,
+        "last_name" => $last_name,
+        "email" => $email,
+        "dob" => $dob
+    ];
+
+    // Set a welcome cookie for the user, expires in 1 hour
+    setcookie("welcome_user", $first_name, time() + 3600, "/");
+
+    // Redirect the user to a welcome page after signup
+    header("Location: ../../View/UserAuthentication/Welcome.php");
+    exit();
+} else {
+    echo "Invalid request.";
 }
 ?>
