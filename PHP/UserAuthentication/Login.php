@@ -1,29 +1,43 @@
 <?php
+session_start();
+
+// Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
+    $email = filter_var(trim($_POST["email"]), FILTER_VALIDATE_EMAIL);
     $password = $_POST["password"];
 
-    $errors = [];
-
-    if (empty($email) || empty($password)) {
-        $errors[] = "All fields are required.";
+    // Validate email format
+    if (!$email) {
+        die("Invalid email format.");
     }
 
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "Invalid email address.";
+    // Check if the user is stored in the session
+    if (!isset($_SESSION['user'])) {
+        die("No user found. Please sign up first.");
     }
 
-    if (empty($errors)) {
-        // Dummy check - replace with DB check
-        if ($email === "test@example.com" && $password === "secret123") {
-            echo "<p style='color:green;'>Login successful!</p>";
-        } else {
-            echo "<p style='color:red;'>Incorrect email or password.</p>";
-        }
-    } else {
-        foreach ($errors as $error) {
-            echo "<p style='color:red;'>$error</p>";
-        }
+    $stored_user = $_SESSION['user'];
+
+    // Simulate stored hashed password
+    // In real apps, passwords are stored in the database
+    $stored_email = $stored_user["email"];
+    $stored_hashed_password = $_SESSION['hashed_password'] ?? null;
+
+    if ($email !== $stored_email) {
+        die("Incorrect email.");
     }
+
+    if (!$stored_hashed_password || !password_verify($password, $stored_hashed_password)) {
+        die("Incorrect password.");
+    }
+
+    // Set login session
+    $_SESSION['logged_in'] = true;
+
+    // Redirect to dashboard or welcome page
+    header("Location: ../../PHP/UserAuthentication/Welcome.php");
+    exit();
+} else {
+    echo "Invalid request.";
 }
 ?>
