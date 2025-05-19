@@ -2,10 +2,10 @@
 session_start();
 
 // Check if the user is logged in
-if (!isset($_SESSION['user'])) {
-    header("Location: ../../View/UserAuthentication/Login.html");
-    exit();
-}
+// if (!isset($_SESSION['user'])) {
+//     header("Location: ../../View/UserAuthentication/Login.php");
+//     exit();
+// }
 
 // Retrieve user data from the session
 $user = $_SESSION['user'];

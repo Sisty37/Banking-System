@@ -13,6 +13,16 @@ unset($_SESSION['success']);
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
   <link rel="stylesheet" href="../../Styles/UserAuthentication/Login.css">
+  <style>
+    .error-message {
+      color: red;
+      margin-bottom: 15px;
+    }
+    .success-message {
+      color: green;
+      margin-bottom: 15px;
+    }
+  </style>
 </head>
 <body>
 
@@ -25,18 +35,17 @@ unset($_SESSION['success']);
     
     <?php if (!empty($success)): ?>
       <div class="success-message"><?php echo $success; ?></div>
+    <?php endif; ?>
 
-    <!-- <form action="../../PHP/UserAuthentication/Login.php" method="POST" onsubmit="validateLoginForm(event)"></form> -->
     <form action="../../PHP/UserAuthentication/Login.php" method="POST">
       <input type="email" id="login-email" name="email" placeholder="Email" required><br><br>
       <input type="password" id="login-password" name="password" placeholder="Password" required><br><br>
-      <p><a href="../../View/UserAuthentication/ForgotPassword.html">Forgot Password?</a></p>
+      <p><a href="../../View/UserAuthentication/ForgotPassword.php">Forgot Password?</a></p>
       <button type="submit">Login</button>
     </form>
 
-    <p><a href="../../View/UserAuthentication/SignUp.html">Don't have an account? Signup</a></p>
+    <p><a href="../../View/UserAuthentication/Signup.php">Don't have an account? Signup</a></p>
   </div>
 
-  <!-- <script src="UserAuthentication.js"></script> -->
 </body>
-</html>
+</html> 

@@ -1,43 +1,29 @@
 <?php
 session_start();
+require_once __DIR__ . '/../../Controllers/AuthController.php';
 
-// Check if the form is submitted
+// Create an instance of the Auth Controller
+$authController = new AuthController();
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = filter_var(trim($_POST["email"]), FILTER_VALIDATE_EMAIL);
-    $password = $_POST["password"];
-
-    // Validate email format
-    if (!$email) {
-        die("Invalid email format.");
+    $email = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
+    
+    $result = $authController->login($email, $password);
+    
+    if ($result["success"]) {
+        // Redirect to dashboard or welcome page
+        header("Location: ./Welcome.php");
+        exit;
+    } else {
+        // Redirect back to login with error message
+        $_SESSION['error'] = $result["message"];
+        header("Location: ../../View/UserAuthentication/Login.php");
+        exit;
     }
-
-    // Check if the user is stored in the session
-    if (!isset($_SESSION['user'])) {
-        die("No user found. Please sign up first.");
-    }
-
-    $stored_user = $_SESSION['user'];
-
-    // Simulate stored hashed password
-    // In real apps, passwords are stored in the database
-    $stored_email = $stored_user["email"];
-    $stored_hashed_password = $_SESSION['hashed_password'] ?? null;
-
-    if ($email !== $stored_email) {
-        die("Incorrect email.");
-    }
-
-    if (!$stored_hashed_password || !password_verify($password, $stored_hashed_password)) {
-        die("Incorrect password.");
-    }
-
-    // Set login session
-    $_SESSION['logged_in'] = true;
-
-    // Redirect to dashboard or welcome page
-    header("Location: ../../PHP/UserAuthentication/Welcome.php");
-    exit();
 } else {
-    echo "Invalid request.";
+    // If not a POST request, redirect to login page
+    header("Location: ../../View/UserAuthentication/Login.php");
+    exit;
 }
 ?>

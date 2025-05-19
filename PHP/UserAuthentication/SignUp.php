@@ -1,47 +1,34 @@
 <?php
 session_start();
+require_once __DIR__ . '/../../Controllers/AuthController.php';
 
-// Check if the form is submitted
+// Create an instance of the Auth Controller
+$authController = new AuthController();
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Sanitize and validate input
-    $first_name = htmlspecialchars(trim($_POST["first_name"]));
-    $last_name = htmlspecialchars(trim($_POST["last_name"]));
-    $email = filter_var(trim($_POST["email"]), FILTER_VALIDATE_EMAIL);
-    $dob = htmlspecialchars(trim($_POST["dob"]));
-    $password = $_POST["password"];
-    $confirm_password = $_POST["confirm_password"];
-
-    // Email validation
-    if (!$email) {
-        die("Invalid email format.");
+    $firstName = $_POST['first_name'] ?? '';
+    $lastName = $_POST['last_name'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $dob = $_POST['dob'] ?? '';
+    $password = $_POST['password'] ?? '';
+    $confirmPassword = $_POST['confirm_password'] ?? '';
+    
+    $result = $authController->register($firstName, $lastName, $email, $dob, $password, $confirmPassword);
+    
+    if ($result["success"]) {
+        // Set success message and redirect to login
+        $_SESSION['success'] = $result["message"];
+        header("Location: ../../View/UserAuthentication/Login.php");
+        exit;
+    } else {
+        // Set error message and redirect back to signup
+        $_SESSION['error'] = $result["message"];
+        header("Location: ../../View/UserAuthentication/Signup.php");
+        exit;
     }
-
-    // Password match validation
-    if ($password !== $confirm_password) {
-        die("Passwords do not match.");
-    }
-
-    // Password hashing
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-    // Simulate user creation by storing in session (not for production use)
-    $_SESSION['user'] = [
-        "first_name" => $first_name,
-        "last_name" => $last_name,
-        "email" => $email,
-        "dob" => $dob
-    ];
-
-    // Store hashed password separately in session
-    $_SESSION['hashed_password'] = $hashed_password;
-
-    // Set welcome cookie for 1 hour
-    setcookie("welcome_user", $first_name, time() + 3600, "/");
-
-    // Redirect to welcome page
-    header("Location: ../../PHP/UserAuthentication/Welcome.php");
-    exit();
 } else {
-    echo "Invalid request.";
+    // If not a POST request, redirect to signup page
+    header("Location: ../../View/UserAuthentication/Signup.php");
+    exit;
 }
 ?>
