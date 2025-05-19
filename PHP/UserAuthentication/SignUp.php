@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION['hashed_password'] = $hashed_password;
 
     // Set welcome cookie for 1 hour
-    setcookie("welcome_user", $first_name, time() -3, "/");
+    setcookie("welcome_user", $first_name, time() + 3600, "/");
 
     // Redirect to welcome page
     header("Location: ../../PHP/UserAuthentication/Welcome.php");
