@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 document.addEventListener('DOMContentLoaded', function() {
     initializeDateInputs();
     setupExportFormValidation();
@@ -10,6 +13,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 function initializeDateInputs() {
     const startDateInput = document.getElementById('start_date');
     const endDateInput = document.getElementById('end_date');
@@ -20,6 +27,10 @@ function initializeDateInputs() {
         endDateInput.valueAsDate = today;
     }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 function setupExportFormValidation() {
     const exportForm = document.querySelector('form[name="export_form"]');
     if (exportForm) {
@@ -66,6 +77,10 @@ function setupExportFormValidation() {
         });
     }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 function setupFormatCards() {
     const formatCards = document.querySelectorAll('.card[data-format]');
     if (formatCards.length > 0) {
@@ -81,6 +96,10 @@ function setupFormatCards() {
         });
     }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 function previewExport() {
     const dataType = document.getElementById('data_type').value;
     const startDate = document.getElementById('start_date').value;
@@ -110,6 +129,10 @@ function previewExport() {
         previewModal.show();
     }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 function downloadReport() {
     const format = document.getElementById('format').value;
     const startDate = document.getElementById('startDate').value;
@@ -119,8 +142,16 @@ function downloadReport() {
       return;
     }
     alert(`Exporting report from ${startDate} to ${endDate} as ${format.toUpperCase()}...`);
+<<<<<<< HEAD
   }
   function scheduleExport() {
     alert('Scheduled export has been set successfully!');
   }
   
+=======
+}
+
+function scheduleExport() {
+    alert('Scheduled export has been set successfully!');
+}
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc

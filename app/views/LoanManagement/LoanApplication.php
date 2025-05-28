@@ -1,6 +1,10 @@
 <?php
 error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE);
+<<<<<<< HEAD
 require_once __DIR__ . '/../../appInitializer.php';
+=======
+require_once __DIR__ . '/../../bootstrap.php';
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 if (!isLoggedIn()) {
     header("Location: ../UserAuthentication/Login.php");
     exit;
@@ -43,12 +47,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apply_loan'])) {
     }
 }
 ?>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loan Application - Banking System</title>
+<<<<<<< HEAD
     <link rel="stylesheet" href="../../../public/css/dashboard.css">
     <link rel="stylesheet" href="../../../public/css/custom.css">
     <link rel="stylesheet" href="../../../public/css/dark-mode.css">
@@ -337,6 +346,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apply_loan'])) {
                 </ul>
             </div>
             <!-- Main Content -->
+=======
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../../public/css/style.css">
+</head>
+<body class="bg-light">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <div class="sidebar-header mb-4 text-center text-white">
+                        <h4>Banking System</h4>
+                    </div>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="../Dashboard/customer_dashboard.php">
+                                <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="../AccountManagement/account_management.php">
+                                <i class="fas fa-user-circle me-2"></i> Account Management
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="../FundTransfer/fund_transfer.php">
+                                <i class="fas fa-exchange-alt me-2"></i> Fund Transfers
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" href="LoanManagement.php">
+                                <i class="fas fa-hand-holding-usd me-2"></i> Loan Management
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="../BillPayment/bill_payment.php">
+                                <i class="fas fa-file-invoice-dollar me-2"></i> Bill Payments
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="../Notifications/notifications.php">
+                                <i class="fas fa-bell me-2"></i> Notifications
+                            </a>
+                        </li>
+                        <li class="nav-item mt-5">
+                            <a class="nav-link text-white" href="../UserAuthentication/logout.php">
+                                <i class="fas fa-sign-out-alt me-2"></i> Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
             <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">Loan Application</h1>
@@ -413,7 +475,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apply_loan'])) {
                                             I agree to the <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">terms and conditions</a>
                                         </label>
                                     </div>
+<<<<<<< HEAD
                                     <!-- Loan Calculator Result -->
+=======
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                     <div id="loan_calculation_result" class="d-none mb-3"></div>
                                     <div class="d-grid gap-2">
                                         <button type="button" id="calculate_loan" class="btn btn-secondary mb-2">
@@ -426,7 +491,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apply_loan'])) {
                                 </form>
                             </div>
                         </div>
+<<<<<<< HEAD
                         <!-- Loan Information Card -->
+=======
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                         <div class="card mb-4">
                             <div class="card-header bg-info text-white">
                                 <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Loan Information</h5>
@@ -475,7 +543,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apply_loan'])) {
             </div>
         </div>
     </div>
+<<<<<<< HEAD
     <!-- Terms and Conditions Modal -->
+=======
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -503,9 +574,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apply_loan'])) {
             </div>
         </div>
     </div>
+<<<<<<< HEAD
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https:
     <!-- Loan and Bill Payment JS -->
+=======
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     <script src="../../../public/js/loanAndBillPayment.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -515,22 +590,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apply_loan'])) {
                 loanTypeSelect.addEventListener('change', function() {
                     const loanType = this.value;
                     loanTermSelect.innerHTML = '<option value="">-- Select Term --</option>';
+<<<<<<< HEAD
                     if (loanType === '1' || loanType === '3') { 
+=======
+                    if (loanType === '1' || loanType === '3') {
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                         addTermOption(1, '1 Year');
                         addTermOption(2, '2 Years');
                         addTermOption(3, '3 Years');
                         addTermOption(5, '5 Years');
                         addTermOption(7, '7 Years');
+<<<<<<< HEAD
                     } else if (loanType === '4') { 
                         addTermOption(5, '5 Years');
                         addTermOption(10, '10 Years');
                         addTermOption(15, '15 Years');
                     } else if (loanType === '2') { 
+=======
+                    } else if (loanType === '4') {
+                        addTermOption(5, '5 Years');
+                        addTermOption(10, '10 Years');
+                        addTermOption(15, '15 Years');
+                    } else if (loanType === '2') {
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                         addTermOption(10, '10 Years');
                         addTermOption(15, '15 Years');
                         addTermOption(20, '20 Years');
                         addTermOption(30, '30 Years');
+<<<<<<< HEAD
                     } else if (loanType === '5') { 
+=======
+                    } else if (loanType === '5') {
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                         addTermOption(1, '1 Year');
                         addTermOption(3, '3 Years');
                         addTermOption(5, '5 Years');
@@ -559,6 +650,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apply_loan'])) {
                     const loanTypeName = loanTypeOption.textContent;
                     let interestRate;
                     switch(loanTypeId) {
+<<<<<<< HEAD
                         case '1': 
                             interestRate = 12.99;
                             break;
@@ -572,6 +664,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apply_loan'])) {
                             interestRate = 6.75;
                             break;
                         case '5': 
+=======
+                        case '1':
+                            interestRate = 12.99;
+                            break;
+                        case '2':
+                            interestRate = 5.25;
+                            break;
+                        case '3':
+                            interestRate = 5.99;
+                            break;
+                        case '4':
+                            interestRate = 6.75;
+                            break;
+                        case '5':
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                             interestRate = 11.25;
                             break;
                         default:
@@ -600,4 +707,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apply_loan'])) {
         });
     </script>
 </body>
+<<<<<<< HEAD
 </html> 
+=======
+</html>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc

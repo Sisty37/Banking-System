@@ -1,6 +1,10 @@
 <?php
 error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE);
+<<<<<<< HEAD
 require_once __DIR__ . '/../../appInitializer.php';
+=======
+require_once __DIR__ . '/../../bootstrap.php';
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 if (!isLoggedIn()) {
     header("Location: ../UserAuthentication/Login.php");
     exit;
@@ -109,6 +113,10 @@ $recentPayments = [
     ]
 ];
 ?>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -116,6 +124,7 @@ $recentPayments = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bill Payments - Banking System</title>
     <link rel="stylesheet" href="../../../public/css/dashboard.css">
+<<<<<<< HEAD
     <link rel="stylesheet" href="../../../public/css/custom.css">
     <link rel="stylesheet" href="../../../public/css/dark-mode.css">
     <style>
@@ -297,10 +306,15 @@ $recentPayments = [
             padding: 8px 0;
         }
     </style>
+=======
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 </head>
 <body>
     <div class="container-fluid">
         <div class="row">
+<<<<<<< HEAD
             <!-- Sidebar -->
             <div class="sidebar">
                 <div class="sidebar-header">
@@ -379,10 +393,64 @@ $recentPayments = [
                             <div class="dropdown-divider"></div>
                             <a href="../../controllers/UserAuthentication/Logout.php" class="user-dropdown-item">
                                 <span class="nav-icon">🚪</span> Logout
+=======
+            <div class="col-md-3 col-lg-2 d-md-block bg-dark sidebar">
+                <div class="position-sticky pt-3">
+                    <div class="text-center mb-4">
+                        <h4 class="text-white">Banking System</h4>
+                    </div>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="../Dashboard/<?php echo $userRole === 'Administrator' ? 'admin_dashboard.php' : 'customer_dashboard.php'; ?>">
+                                <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="../AccountDashboard/dd.php">
+                                <i class="fas fa-money-check-alt me-2"></i> Account Management
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="../FundTransfers/transfer.php">
+                                <i class="fas fa-exchange-alt me-2"></i> Fund Transfers
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="../LoanManagement/LoanApplication.php">
+                                <i class="fas fa-hand-holding-usd me-2"></i> Loan Management
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" href="#">
+                                <i class="fas fa-file-invoice-dollar me-2"></i> Bill Payments
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="../notifications/notificationCenter.php">
+                                <i class="fas fa-bell me-2"></i> Notifications
+                            </a>
+                        </li>
+                        <li class="nav-item mt-5">
+                            <a class="nav-link text-white" href="../../controllers/UserAuthentication/Logout.php">
+                                <i class="fas fa-sign-out-alt me-2"></i> Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Bill Payments</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group me-2">
+                            <a href="ManageBillers.php" class="btn btn-sm btn-outline-secondary">
+                                <i class="fas fa-cog me-1"></i> Manage Billers
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                             </a>
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
                 
                 <div class="d-flex justify-content-end mb-3">
                     <a href="ManageBillers.php" class="btn btn-outline-primary">
@@ -410,6 +478,19 @@ $recentPayments = [
                                 <h5 class="mb-0 d-flex align-items-center">
                                     <span class="nav-icon me-2">💸</span> Pay a Bill
                                 </h5>
+=======
+                <?php if (!empty($message)): ?>
+                <div class="alert alert-<?php echo $messageType; ?> alert-dismissible fade show" role="alert">
+                    <?php echo $message; ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <?php endif; ?>
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0"><i class="fas fa-file-invoice-dollar me-2"></i>Pay a Bill</h5>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                             </div>
                             <div class="card-body">
                                 <form method="POST" action="PayBill.php">
@@ -449,10 +530,14 @@ $recentPayments = [
                                     </div>
                                     <div class="mb-3">
                                         <label for="amount" class="form-label">Amount ($)</label>
+<<<<<<< HEAD
                                         <div class="input-group">
                                             <span class="input-group-text">$</span>
                                             <input type="number" class="form-control" id="amount" name="amount" min="0.01" step="0.01" required>
                                         </div>
+=======
+                                        <input type="number" class="form-control" id="amount" name="amount" min="0.01" step="0.01" required>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                     </div>
                                     <div class="mb-3">
                                         <label for="source_account_id" class="form-label">Pay From Account</label>
@@ -469,7 +554,11 @@ $recentPayments = [
                                         <label for="payment_date" class="form-label">Payment Date</label>
                                         <input type="date" class="form-control" id="payment_date" name="payment_date" value="<?php echo date('Y-m-d'); ?>" min="<?php echo date('Y-m-d'); ?>" required>
                                         <div class="form-text">
+<<<<<<< HEAD
                                             <span class="nav-icon me-1">ℹ️</span> Select today for immediate payment or a future date to schedule
+=======
+                                            <i class="fas fa-info-circle me-1"></i> Select today for immediate payment or a future date to schedule
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                         </div>
                                     </div>
                                     <div class="mb-3 form-check">
@@ -477,14 +566,20 @@ $recentPayments = [
                                         <label class="form-check-label" for="save_biller">Save this biller for future payments</label>
                                     </div>
                                     <div class="d-grid gap-2">
+<<<<<<< HEAD
                                         <button type="submit" name="pay_bill" class="btn btn-primary">
                                             <span class="nav-icon me-2">📤</span> Pay Bill
+=======
+                                        <button type="submit" name="pay_bill" class="btn btn-primary" onclick="return validateBillPayment()">
+                                            <i class="fas fa-paper-plane me-2"></i>Pay Bill
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                         </button>
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
+<<<<<<< HEAD
                     
                     <!-- Saved Billers -->
                     <div class="col-md-6 mb-4">
@@ -499,13 +594,29 @@ $recentPayments = [
                                     <div class="biller-list">
                                         <?php foreach ($savedBillers as $biller): ?>
                                             <a href="#" class="biller-item <?php echo htmlspecialchars($biller['type']); ?> select-biller" 
+=======
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-header bg-success text-white">
+                                <h5 class="mb-0"><i class="fas fa-bookmark me-2"></i>Saved Billers</h5>
+                            </div>
+                            <div class="card-body">
+                                <?php if (!empty($savedBillers)): ?>
+                                    <div class="list-group">
+                                        <?php foreach ($savedBillers as $biller): ?>
+                                            <a href="#" class="list-group-item list-group-item-action select-biller" 
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                                data-id="<?php echo htmlspecialchars($biller['id']); ?>"
                                                data-name="<?php echo htmlspecialchars($biller['name']); ?>"
                                                data-type="<?php echo htmlspecialchars($biller['type']); ?>"
                                                data-account="<?php echo htmlspecialchars($biller['account_number']); ?>"
                                                data-amount="<?php echo htmlspecialchars($biller['last_payment']); ?>">
                                                 <div class="d-flex w-100 justify-content-between">
+<<<<<<< HEAD
                                                     <h6 class="mb-1 fw-bold"><?php echo htmlspecialchars($biller['name']); ?></h6>
+=======
+                                                    <h6 class="mb-1"><?php echo htmlspecialchars($biller['name']); ?></h6>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                                     <small class="text-muted">Last paid: <?php echo date('M d, Y', strtotime($biller['last_payment_date'])); ?></small>
                                                 </div>
                                                 <p class="mb-1">Account: <?php echo htmlspecialchars($biller['account_number']); ?></p>
@@ -515,13 +626,18 @@ $recentPayments = [
                                     </div>
                                 <?php else: ?>
                                     <div class="alert alert-info">
+<<<<<<< HEAD
                                         <span class="nav-icon me-2">ℹ️</span> You don't have any saved billers yet.
+=======
+                                        <i class="fas fa-info-circle me-2"></i> You don't have any saved billers yet.
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                     </div>
                                 <?php endif; ?>
                             </div>
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
                 
                 <!-- Recent Payments -->
                 <div class="card mb-4">
@@ -529,11 +645,20 @@ $recentPayments = [
                         <h5 class="mb-0 d-flex align-items-center">
                             <span class="nav-icon me-2">🕒</span> Recent Payments
                         </h5>
+=======
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="fas fa-history me-2"></i>Recent Payments</h5>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                     </div>
                     <div class="card-body">
                         <?php if (!empty($recentPayments)): ?>
                             <div class="table-responsive">
+<<<<<<< HEAD
                                 <table class="payment-table">
+=======
+                                <table class="table table-striped table-hover">
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                     <thead>
                                         <tr>
                                             <th>Reference #</th>
@@ -552,11 +677,19 @@ $recentPayments = [
                                                 <td>$<?php echo number_format($payment['amount'], 2); ?></td>
                                                 <td><?php echo date('M d, Y', strtotime($payment['payment_date'])); ?></td>
                                                 <td>
+<<<<<<< HEAD
                                                     <span class="status-badge completed"><?php echo htmlspecialchars($payment['status']); ?></span>
                                                 </td>
                                                 <td>
                                                     <button class="receipt-btn" onclick="showReceipt('<?php echo htmlspecialchars($payment['id']); ?>', '<?php echo htmlspecialchars($payment['biller_name']); ?>', '<?php echo number_format($payment['amount'], 2); ?>', '<?php echo date('M d, Y', strtotime($payment['payment_date'])); ?>')">
                                                         <span class="nav-icon">🧾</span> Receipt
+=======
+                                                    <span class="badge bg-success"><?php echo htmlspecialchars($payment['status']); ?></span>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#receiptModal" data-id="<?php echo htmlspecialchars($payment['id']); ?>">
+                                                        <i class="fas fa-receipt me-1"></i> Receipt
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                                     </button>
                                                 </td>
                                             </tr>
@@ -566,11 +699,16 @@ $recentPayments = [
                             </div>
                         <?php else: ?>
                             <div class="alert alert-info">
+<<<<<<< HEAD
                                 <span class="nav-icon me-2">ℹ️</span> You don't have any recent bill payments.
+=======
+                                <i class="fas fa-info-circle me-2"></i> You don't have any recent bill payments.
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                             </div>
                         <?php endif; ?>
                     </div>
                 </div>
+<<<<<<< HEAD
                 
                 <!-- Scheduled Payments -->
                 <div class="card mb-4">
@@ -586,6 +724,19 @@ $recentPayments = [
                         <div class="text-center mt-3">
                             <a href="SchedulePayment.php" class="btn btn-primary">
                                 <span class="nav-icon me-2">➕</span> Schedule a Payment
+=======
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="fas fa-calendar-alt me-2"></i>Scheduled Payments</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i> You don't have any scheduled payments.
+                        </div>
+                        <div class="text-center mt-3">
+                            <a href="SchedulePayment.php" class="btn btn-primary">
+                                <i class="fas fa-plus me-2"></i>Schedule a Payment
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                             </a>
                         </div>
                     </div>
@@ -593,6 +744,7 @@ $recentPayments = [
             </div>
         </div>
     </div>
+<<<<<<< HEAD
     
     <!-- Dark Mode Toggle -->
     <div class="dark-mode-toggle" data-tooltip="Toggle Dark Mode">
@@ -610,11 +762,27 @@ $recentPayments = [
                 <div class="modal-body">
                     <div class="text-center mb-4">
                         <div class="receipt-success">✅</div>
+=======
+    <div class="modal fade" id="receiptModal" tabindex="-1" aria-labelledby="receiptModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="receiptModalLabel">Payment Receipt</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-check-circle text-success fa-4x"></i>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                         <h4 class="mt-3">Payment Successful</h4>
                     </div>
                     <div class="card">
                         <div class="card-body">
+<<<<<<< HEAD
                             <table class="receipt-table">
+=======
+                            <table class="table table-borderless">
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                 <tr>
                                     <th>Reference Number:</th>
                                     <td id="receipt_id">BP123456</td>
@@ -633,21 +801,32 @@ $recentPayments = [
                                 </tr>
                                 <tr>
                                     <th>Status:</th>
+<<<<<<< HEAD
                                     <td><span class="status-badge completed">Completed</span></td>
+=======
+                                    <td><span class="badge bg-success">Completed</span></td>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                 </tr>
                             </table>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
+<<<<<<< HEAD
                     <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
                     <button type="button" class="btn btn-primary">
                         <span class="nav-icon me-1">📥</span> Download Receipt
+=======
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">
+                        <i class="fas fa-download me-1"></i> Download Receipt
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                     </button>
                 </div>
             </div>
         </div>
     </div>
+<<<<<<< HEAD
     
     <script src="../../../public/js/custom-design.js"></script>
     <script>
@@ -661,12 +840,21 @@ $recentPayments = [
             });
             
             // Biller selection logic
+=======
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../public/js/loanAndBillPayment.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
             const billerSelect = document.getElementById('biller_id');
             const billTypeSelect = document.getElementById('bill_type');
             const accountNumberInput = document.getElementById('account_number');
             const amountInput = document.getElementById('amount');
             const newBillerFields = document.getElementById('new_biller_fields');
+<<<<<<< HEAD
             
+=======
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
             if (billerSelect) {
                 billerSelect.addEventListener('change', function() {
                     const selectedOption = this.options[this.selectedIndex];
@@ -687,8 +875,11 @@ $recentPayments = [
                     }
                 });
             }
+<<<<<<< HEAD
             
             // Saved biller selection
+=======
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
             const savedBillers = document.querySelectorAll('.select-biller');
             savedBillers.forEach(biller => {
                 biller.addEventListener('click', function(e) {
@@ -706,6 +897,7 @@ $recentPayments = [
                     });
                 });
             });
+<<<<<<< HEAD
         });
         
         // Modal functions
@@ -734,3 +926,17 @@ $recentPayments = [
     </script>
 </body>
 </html> 
+=======
+            const receiptModal = document.getElementById('receiptModal');
+            if (receiptModal) {
+                receiptModal.addEventListener('show.bs.modal', function(event) {
+                    const button = event.relatedTarget;
+                    const id = button.getAttribute('data-id');
+                    document.getElementById('receipt_id').textContent = id;
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc

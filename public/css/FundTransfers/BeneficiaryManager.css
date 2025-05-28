@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 body {
     margin: 0;
@@ -73,3 +74,88 @@ body {
     background-color: #c82333;
   }
   
+=======
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #c9e6c9;
+}
+
+.container {
+  max-width: 650px;
+  margin: auto;
+  padding: 20px;
+}
+
+h2 {
+  color: #216c2a;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 6px 16px rgba(33, 108, 42, 0.1);
+}
+
+.form-label {
+  font-weight: 600;
+  color: #1d5c24;
+  margin-bottom: 6px;
+}
+
+.form-control {
+  border-radius: 10px;
+  border: 1px solid #a4d4a2;
+  padding: 12px;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 24px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: white;
+  transition: background-color 0.3s;
+  width: auto;
+  cursor: pointer;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+.list-group-item {
+  border: none;
+  border-bottom: 1px solid #d4edda;
+  background-color: #ffffff;
+  font-weight: 500;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-danger {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc

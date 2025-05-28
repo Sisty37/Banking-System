@@ -1,21 +1,44 @@
 <?php
 session_start();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../UserAuthentication/Login.php");
     exit;
 }
+<<<<<<< HEAD
 require_once __DIR__ . '/../../controllers/AccountController.php';
 $accountController = new AccountController();
+=======
+
+require_once __DIR__ . '/../../controllers/AccountController.php';
+$accountController = new AccountController();
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 $userId = $_SESSION['user_id'];
 $firstName = $_SESSION['first_name'] ?? '';
 $lastName = $_SESSION['last_name'] ?? '';
 $fullName = $firstName . ' ' . $lastName;
 $role = $_SESSION['role'] ?? 'Customer';
+<<<<<<< HEAD
 $accounts = $accountController->getUserAccounts($userId);
 $selectedAccountId = isset($_GET['account_id']) ? $_GET['account_id'] : null;
 if (!$selectedAccountId && !empty($accounts)) {
     $selectedAccountId = $accounts[0]['account_id'];
 }
+=======
+
+$accounts = $accountController->getUserAccounts($userId);
+
+$selectedAccountId = isset($_GET['account_id']) ? $_GET['account_id'] : null;
+
+if (!$selectedAccountId && !empty($accounts)) {
+    $selectedAccountId = $accounts[0]['account_id'];
+}
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 $accountDetails = null;
 $recentTransactions = [];
 if ($selectedAccountId) {
@@ -23,6 +46,10 @@ if ($selectedAccountId) {
     $recentTransactions = $accountController->getRecentTransactions($selectedAccountId, 10);
 }
 ?>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,17 +57,26 @@ if ($selectedAccountId) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account Details - Banking System</title>
     <link rel="stylesheet" href="../../../public/css/dashboard.css">
+<<<<<<< HEAD
     <!-- Add Bootstrap CSS -->
     <link href="https:
     <!-- Add Font Awesome for icons -->
     <link rel="stylesheet" href="https:
     <!-- Add DataTables CSS -->
     <link rel="stylesheet" href="https:
+=======
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 </head>
 <body>
     <div class="container-fluid">
         <div class="row">
+<<<<<<< HEAD
             <!-- Sidebar -->
+=======
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
             <div class="col-md-3 col-lg-2 d-md-block bg-dark sidebar">
                 <div class="position-sticky pt-3">
                     <div class="text-center mb-4">
@@ -80,7 +116,11 @@ if ($selectedAccountId) {
                     </ul>
                 </div>
             </div>
+<<<<<<< HEAD
             <!-- Main content -->
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
             <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">Account Details</h1>
@@ -89,7 +129,11 @@ if ($selectedAccountId) {
                         <span class="ms-2">Welcome, <?php echo htmlspecialchars($fullName); ?></span>
                     </div>
                 </div>
+<<<<<<< HEAD
                 <!-- Account Selection -->
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                 <div class="row mb-4">
                     <div class="col-md-12">
                         <div class="card">
@@ -125,8 +169,13 @@ if ($selectedAccountId) {
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
                 <?php if ($accountDetails): ?>
                 <!-- Account Details -->
+=======
+
+                <?php if ($accountDetails): ?>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                 <div class="row mb-4">
                     <div class="col-md-12">
                         <div class="card">
@@ -180,7 +229,11 @@ if ($selectedAccountId) {
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
                 <!-- Recent Transactions -->
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                 <div class="row mb-4">
                     <div class="col-md-12">
                         <div class="card">
@@ -243,6 +296,7 @@ if ($selectedAccountId) {
             </div>
         </div>
     </div>
+<<<<<<< HEAD
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https:
     <!-- jQuery -->
@@ -250,6 +304,14 @@ if ($selectedAccountId) {
     <!-- DataTables JS -->
     <script src="https:
     <script src="https:
+=======
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     <script>
         $(document).ready(function() {
             $('#transactionsTable').DataTable({
@@ -263,4 +325,8 @@ if ($selectedAccountId) {
         });
     </script>
 </body>
+<<<<<<< HEAD
 </html> 
+=======
+</html> 
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc

@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 document.addEventListener('DOMContentLoaded', function() {
     initLoanCalculator();
     initBillPayment();
@@ -9,6 +12,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 function initLoanCalculator() {
     const loanAmountInput = document.getElementById('loan_amount');
     const loanTermSelect = document.getElementById('loan_term');
@@ -24,6 +31,10 @@ function initLoanCalculator() {
         loanTypeSelect.addEventListener('change', calculateLoanDetails);
     }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 function calculateLoanDetails() {
     const loanAmount = parseFloat(document.getElementById('loan_amount').value);
     const loanTerm = parseInt(document.getElementById('loan_term').value);
@@ -35,6 +46,7 @@ function calculateLoanDetails() {
     let interestRate;
     switch (loanType) {
         case 'personal':
+<<<<<<< HEAD
             interestRate = 12.99; 
             break;
         case 'home':
@@ -51,6 +63,24 @@ function calculateLoanDetails() {
             break;
         default:
             interestRate = 10.00; 
+=======
+            interestRate = 12.99;
+            break;
+        case 'home':
+            interestRate = 5.25;
+            break;
+        case 'auto':
+            interestRate = 4.99;
+            break;
+        case 'education':
+            interestRate = 6.75;
+            break;
+        case 'business':
+            interestRate = 9.50;
+            break;
+        default:
+            interestRate = 10.00;
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     }
     const monthlyRate = interestRate / 100 / 12;
     const numPayments = loanTerm * 12;
@@ -90,6 +120,10 @@ function calculateLoanDetails() {
     `;
     resultElement.classList.remove('d-none');
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 function initBillPayment() {
     const billerSelect = document.getElementById('biller_id');
     const billTypeSelect = document.getElementById('bill_type');
@@ -137,6 +171,10 @@ function initBillPayment() {
         });
     });
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 function validateBillPayment() {
     const billType = document.getElementById('bill_type').value;
     const billerId = document.getElementById('biller_id').value;
@@ -153,6 +191,10 @@ function validateBillPayment() {
     }
     return true;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 function validateLoanApplication() {
     const loanType = document.getElementById('loan_type').value;
     const loanAmount = document.getElementById('loan_amount').value;
@@ -174,6 +216,10 @@ function validateLoanApplication() {
     }
     return true;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 function generateAmortizationSchedule(loanAmount, interestRate, loanTermYears) {
     const monthlyRate = interestRate / 100 / 12;
     const numPayments = loanTermYears * 12;
@@ -194,4 +240,8 @@ function generateAmortizationSchedule(loanAmount, interestRate, loanTermYears) {
         });
     }
     return schedule;
+<<<<<<< HEAD
 } 
+=======
+}
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc

@@ -1,17 +1,29 @@
 <?php
 class BillPaymentModel {
     private $db;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function __construct() {
         require_once __DIR__ . '/../config/Database.php';
         $database = new Database();
         $this->db = $database->getConnection();
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function getBillCategories() {
         $query = "SELECT * FROM bill_categories ORDER BY category_name";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function getBillCategoryById($categoryId) {
         $query = "SELECT * FROM bill_categories WHERE category_id = :category_id";
         $stmt = $this->db->prepare($query);
@@ -19,6 +31,10 @@ class BillPaymentModel {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function getBillersByCategory($categoryId) {
         $query = "SELECT * FROM billers WHERE category_id = :category_id ORDER BY biller_name";
         $stmt = $this->db->prepare($query);
@@ -26,6 +42,10 @@ class BillPaymentModel {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function getBillerById($billerId) {
         $query = "SELECT * FROM billers WHERE biller_id = :biller_id";
         $stmt = $this->db->prepare($query);
@@ -33,6 +53,10 @@ class BillPaymentModel {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function addSavedBiller($data) {
         $query = "INSERT INTO saved_billers 
                   (user_id, biller_id, account_nickname, account_number) 
@@ -48,6 +72,10 @@ class BillPaymentModel {
         }
         return false;
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function getUserSavedBillers($userId) {
         $query = "SELECT sb.*, b.biller_name, bc.category_name 
                   FROM saved_billers sb
@@ -60,6 +88,10 @@ class BillPaymentModel {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function getSavedBillerById($savedBillerId) {
         $query = "SELECT sb.*, b.biller_name, bc.category_name 
                   FROM saved_billers sb
@@ -71,6 +103,10 @@ class BillPaymentModel {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function updateSavedBiller($data) {
         $query = "UPDATE saved_billers 
                   SET account_nickname = :account_nickname, 
@@ -84,6 +120,10 @@ class BillPaymentModel {
         $stmt->bindParam(':user_id', $data['user_id']);
         return $stmt->execute();
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function deleteSavedBiller($savedBillerId, $userId) {
         $query = "DELETE FROM saved_billers 
                   WHERE saved_biller_id = :saved_biller_id 
@@ -93,6 +133,10 @@ class BillPaymentModel {
         $stmt->bindParam(':user_id', $userId);
         return $stmt->execute();
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function makeBillPayment($data) {
         $this->db->beginTransaction();
         try {
@@ -135,6 +179,10 @@ class BillPaymentModel {
             return false;
         }
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function getUserBillPaymentHistory($userId) {
         $query = "SELECT bp.*, b.biller_name, bc.category_name, a.account_number as source_account_number
                   FROM bill_payments bp
@@ -148,6 +196,10 @@ class BillPaymentModel {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function getBillPaymentById($paymentId) {
         $query = "SELECT bp.*, b.biller_name, bc.category_name, a.account_number as source_account_number
                   FROM bill_payments bp
@@ -160,6 +212,10 @@ class BillPaymentModel {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function getBillPaymentByReference($referenceNumber) {
         $query = "SELECT bp.*, b.biller_name, bc.category_name, a.account_number as source_account_number
                   FROM bill_payments bp
@@ -172,12 +228,20 @@ class BillPaymentModel {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     private function generateReferenceNumber() {
         $prefix = 'BP';
         $timestamp = date('YmdHis');
         $random = mt_rand(1000, 9999);
         return $prefix . $timestamp . $random;
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function schedulePayment($data) {
         $query = "INSERT INTO scheduled_payments 
                   (user_id, biller_id, account_number, amount, source_account_id, scheduled_date, recurring, frequency, description) 
@@ -198,6 +262,10 @@ class BillPaymentModel {
         }
         return false;
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function getUserScheduledPayments($userId) {
         $query = "SELECT sp.*, b.biller_name, bc.category_name, a.account_number as source_account_number
                   FROM scheduled_payments sp
@@ -211,6 +279,10 @@ class BillPaymentModel {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function cancelScheduledPayment($scheduledPaymentId, $userId) {
         $query = "DELETE FROM scheduled_payments 
                   WHERE scheduled_payment_id = :scheduled_payment_id 
@@ -220,6 +292,10 @@ class BillPaymentModel {
         $stmt->bindParam(':user_id', $userId);
         return $stmt->execute();
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function getUserBillPaymentStatistics($userId) {
         $stats = [];
         $query = "SELECT SUM(amount) as total_paid
@@ -261,4 +337,8 @@ class BillPaymentModel {
         return $stats;
     }
 }
+<<<<<<< HEAD
 ?> 
+=======
+?>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc

@@ -41,6 +41,11 @@
     </tbody>
   </table>
   <button class="save-btn" onclick="saveRoles()">Save Roles</button>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
   <script src="../../../public/js/RoleBasedAccess.js"></script>
 </body>
 </html>
+

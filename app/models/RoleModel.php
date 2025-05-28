@@ -1,6 +1,10 @@
 <?php
 class RoleModel {
     private $db;
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function __construct() {
         try {
             $this->db = new PDO("mysql:host=localhost;dbname=banking_system", "root", "");
@@ -9,12 +13,20 @@ class RoleModel {
             die("Database connection failed: " . $e->getMessage());
         }
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function getAllRoles() {
         $query = "SELECT * FROM roles ORDER BY role_id";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function getRoleById($roleId) {
         $query = "SELECT * FROM roles WHERE role_id = :roleId";
         $stmt = $this->db->prepare($query);
@@ -22,6 +34,10 @@ class RoleModel {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function createRole($roleName, $description = '') {
         $query = "SELECT * FROM roles WHERE role_name = :roleName";
         $stmt = $this->db->prepare($query);
@@ -40,6 +56,10 @@ class RoleModel {
             return ["success" => false, "message" => "Failed to create role"];
         }
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function updateRole($roleId, $roleName, $description = '') {
         $query = "SELECT * FROM roles WHERE role_name = :roleName AND role_id != :roleId";
         $stmt = $this->db->prepare($query);
@@ -60,6 +80,10 @@ class RoleModel {
             return ["success" => false, "message" => "Failed to update role"];
         }
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function deleteRole($roleId) {
         $this->db->beginTransaction();
         try {
@@ -82,12 +106,20 @@ class RoleModel {
             return false;
         }
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function getAllPermissions() {
         $query = "SELECT * FROM permissions ORDER BY permission_id";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function getPermissionById($permissionId) {
         $query = "SELECT * FROM permissions WHERE permission_id = :permissionId";
         $stmt = $this->db->prepare($query);
@@ -95,6 +127,10 @@ class RoleModel {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function createPermission($permissionName, $description = '') {
         $query = "SELECT * FROM permissions WHERE permission_name = :permissionName";
         $stmt = $this->db->prepare($query);
@@ -113,6 +149,10 @@ class RoleModel {
             return ["success" => false, "message" => "Failed to create permission"];
         }
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function deletePermission($permissionId) {
         $this->db->beginTransaction();
         try {
@@ -131,12 +171,20 @@ class RoleModel {
             return false;
         }
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function getAllRolePermissions() {
         $query = "SELECT * FROM role_permissions";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function getRolePermissions($roleId) {
         $query = "SELECT p.* 
                  FROM permissions p
@@ -147,6 +195,10 @@ class RoleModel {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function updateRolePermissions($roleId, $permissionIds) {
         $this->db->beginTransaction();
         try {
@@ -170,6 +222,10 @@ class RoleModel {
             return false;
         }
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function userHasPermission($userId, $permissionName) {
         $query = "SELECT COUNT(*) FROM role_permissions rp
                  JOIN user_roles ur ON rp.role_id = ur.role_id
@@ -181,5 +237,8 @@ class RoleModel {
         $stmt->execute();
         return $stmt->fetchColumn() > 0;
     }
+<<<<<<< HEAD
 }
 ?> 
+=======
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc

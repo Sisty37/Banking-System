@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f7f8;
@@ -8,6 +11,10 @@ body {
   height: 100vh;
   margin: 0;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 .login-container {
   background-color: white;
   padding: 30px 40px;
@@ -17,10 +24,18 @@ body {
   width: 100%;
   max-width: 400px;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 h2 {
   margin-bottom: 20px;
   color: #333;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 input[type="email"],
 input[type="password"] {
   width: 100%;
@@ -31,6 +46,10 @@ input[type="password"] {
   box-sizing: border-box;
   font-size: 16px;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 button {
   background-color: #4CAF50;
   color: white;
@@ -43,12 +62,24 @@ button {
   transition: background-color 0.3s ease;
   margin-top: 5px;
 }
+<<<<<<< HEAD
 button:hover {
   background-color: #45a049;
 }
 p {
   margin-top: 5px;
 }
+=======
+
+button:hover {
+  background-color: #45a049;
+}
+
+p {
+  margin-top: 5px;
+}
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 a {
   color: #4CAF50;
   text-decoration: none;

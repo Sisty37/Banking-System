@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+ 
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 
 function savePermissions() {
     const dashboardAccess = document.getElementById('dashboard').value;

@@ -10,6 +10,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<p style='color:red;'>Passwords do not match.</p>";
     } else {
         echo "<p style='color:green;'>Password reset successful!</p>";
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     }
 }
 ?>

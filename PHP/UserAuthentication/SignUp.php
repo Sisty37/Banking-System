@@ -1,13 +1,10 @@
 <?php
 session_start();
-require_once __DIR__ . '/../AuthController.php';
-<<<<<<< HEAD
-$authController = new AuthController();
-=======
+require_once __DIR__ . '/../../Controllers/AuthController.php';
 
+// Create an instance of the Auth Controller
 $authController = new AuthController();
 
->>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $firstName = $_POST['first_name'] ?? '';
     $lastName = $_POST['last_name'] ?? '';
@@ -15,24 +12,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $dob = $_POST['dob'] ?? '';
     $password = $_POST['password'] ?? '';
     $confirmPassword = $_POST['confirm_password'] ?? '';
-<<<<<<< HEAD
-    $result = $authController->register($firstName, $lastName, $email, $dob, $password, $confirmPassword);
-=======
     
     $result = $authController->register($firstName, $lastName, $email, $dob, $password, $confirmPassword);
     
->>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     if ($result["success"]) {
+        // Set success message and redirect to login
         $_SESSION['success'] = $result["message"];
-        header("Location: ../../../app/views/UserAuthentication/Login.php");
+        header("Location: ../../View/UserAuthentication/Login.php");
         exit;
     } else {
+        // Set error message and redirect back to signup
         $_SESSION['error'] = $result["message"];
-        header("Location: ../../../app/views/UserAuthentication/Signup.php");
+        header("Location: ../../View/UserAuthentication/Signup.php");
         exit;
     }
 } else {
-    header("Location: ../../../app/views/UserAuthentication/Signup.php");
+    // If not a POST request, redirect to signup page
+    header("Location: ../../View/UserAuthentication/Signup.php");
     exit;
 }
 ?>

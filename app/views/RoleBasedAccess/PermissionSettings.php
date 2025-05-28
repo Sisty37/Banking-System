@@ -1,9 +1,14 @@
 ﻿<?php
 session_start();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Administrator') {
     header("Location: ../UserAuthentication/Login.php");
     exit;
 }
+<<<<<<< HEAD
 $firstName = $_SESSION['first_name'] ?? '';
 $lastName = $_SESSION['last_name'] ?? '';
 $fullName = $firstName . ' ' . $lastName;
@@ -14,12 +19,33 @@ $permissions = $roleModel->getAllPermissions();
 $rolePermissions = $roleModel->getAllRolePermissions();
 $message = '';
 $messageType = '';
+=======
+
+$firstName = $_SESSION['first_name'] ?? '';
+$lastName = $_SESSION['last_name'] ?? '';
+$fullName = $firstName . ' ' . $lastName;
+
+require_once __DIR__ . '/../../models/RoleModel.php';
+$roleModel = new RoleModel();
+
+$roles = $roleModel->getAllRoles();
+$permissions = $roleModel->getAllPermissions();
+$rolePermissions = $roleModel->getAllRolePermissions();
+
+$message = '';
+$messageType = '';
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['action'])) {
         switch ($_POST['action']) {
             case 'add_role':
                 $roleName = $_POST['role_name'] ?? '';
                 $description = $_POST['description'] ?? '';
+<<<<<<< HEAD
+=======
+                
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                 if (!empty($roleName)) {
                     $result = $roleModel->createRole($roleName, $description);
                     if ($result['success']) {
@@ -35,10 +61,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $messageType = "danger";
                 }
                 break;
+<<<<<<< HEAD
+=======
+                
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
             case 'update_role':
                 $roleId = $_POST['role_id'] ?? '';
                 $roleName = $_POST['role_name'] ?? '';
                 $description = $_POST['description'] ?? '';
+<<<<<<< HEAD
+=======
+                
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                 if (!empty($roleId) && !empty($roleName)) {
                     $result = $roleModel->updateRole($roleId, $roleName, $description);
                     if ($result['success']) {
@@ -54,8 +88,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $messageType = "danger";
                 }
                 break;
+<<<<<<< HEAD
             case 'delete_role':
                 $roleId = $_POST['role_id'] ?? '';
+=======
+                
+            case 'delete_role':
+                $roleId = $_POST['role_id'] ?? '';
+                
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                 if (!empty($roleId)) {
                     if ($roleId <= 6) {
                         $message = "Cannot delete default system roles.";
@@ -76,9 +117,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $messageType = "danger";
                 }
                 break;
+<<<<<<< HEAD
             case 'update_permissions':
                 $roleId = $_POST['role_id'] ?? '';
                 $permissionIds = $_POST['permissions'] ?? [];
+=======
+                
+            case 'update_permissions':
+                $roleId = $_POST['role_id'] ?? '';
+                $permissionIds = $_POST['permissions'] ?? [];
+                
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                 if (!empty($roleId)) {
                     $result = $roleModel->updateRolePermissions($roleId, $permissionIds);
                     if ($result) {
@@ -94,9 +143,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $messageType = "danger";
                 }
                 break;
+<<<<<<< HEAD
             case 'add_permission':
                 $permissionName = $_POST['permission_name'] ?? '';
                 $description = $_POST['description'] ?? '';
+=======
+                
+            case 'add_permission':
+                $permissionName = $_POST['permission_name'] ?? '';
+                $description = $_POST['description'] ?? '';
+                
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                 if (!empty($permissionName)) {
                     $result = $roleModel->createPermission($permissionName, $description);
                     if ($result['success']) {
@@ -112,8 +169,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $messageType = "danger";
                 }
                 break;
+<<<<<<< HEAD
             case 'delete_permission':
                 $permissionId = $_POST['permission_id'] ?? '';
+=======
+                
+            case 'delete_permission':
+                $permissionId = $_POST['permission_id'] ?? '';
+                
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                 if (!empty($permissionId)) {
                     $result = $roleModel->deletePermission($permissionId);
                     if ($result) {
@@ -133,11 +197,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 $formattedRolePermissions = [];
 foreach ($rolePermissions as $rp) {
     $formattedRolePermissions[$rp['role_id']][] = $rp['permission_id'];
 }
 ?>
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -594,10 +663,24 @@ foreach ($rolePermissions as $rp) {
             }
         }
     </style>
+=======
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Role & Permission Management - Banking System</title>
+    <link rel="stylesheet" href="../../../public/css/dashboard.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 </head>
 <body>
     <div class="container-fluid">
         <div class="row">
+<<<<<<< HEAD
             <!-- Sidebar -->
             <div class="sidebar">
                 <div class="sidebar-header">
@@ -718,6 +801,88 @@ foreach ($rolePermissions as $rp) {
                             <div class="permission-card-body">
                                 <div class="permission-table-responsive">
                                     <table id="rolesTable" class="permission-table">
+=======
+            <div class="col-md-3 col-lg-2 d-md-block bg-dark sidebar">
+                <div class="position-sticky pt-3">
+                    <div class="text-center mb-4">
+                        <h4 class="text-white">Banking System</h4>
+                    </div>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="../Dashboard/admin_dashboard.php">
+                                <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="../Dashboard/user_management.php">
+                                <i class="fas fa-users me-2"></i> User Management
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" href="#">
+                                <i class="fas fa-user-shield me-2"></i> Roles & Permissions
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#">
+                                <i class="fas fa-exchange-alt me-2"></i> Transaction Log
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#">
+                                <i class="fas fa-chart-line me-2"></i> System Analytics
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#">
+                                <i class="fas fa-cogs me-2"></i> System Settings
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="../notifications/notificationCenter.php">
+                                <i class="fas fa-bell me-2"></i> Notifications
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="../DataExport/exportWizard.php">
+                                <i class="fas fa-file-export me-2"></i> Data Export
+                            </a>
+                        </li>
+                        <li class="nav-item mt-5">
+                            <a class="nav-link text-white" href="../../controllers/UserAuthentication/Logout.php">
+                                <i class="fas fa-sign-out-alt me-2"></i> Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Role & Permission Management</h1>
+                    <div>
+                        <span class="badge bg-danger">Administrator</span>
+                        <span class="ms-2">Welcome, <?php echo htmlspecialchars($fullName); ?></span>
+                    </div>
+                </div>
+                <?php if (!empty($message)): ?>
+                <div class="alert alert-<?php echo $messageType; ?> alert-dismissible fade show" role="alert">
+                    <?php echo $message; ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <?php endif; ?>
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">Role Management</h5>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRoleModal">
+                                    <i class="fas fa-plus"></i> Add New Role
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="rolesTable" class="table table-striped table-hover">
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
@@ -736,6 +901,7 @@ foreach ($rolePermissions as $rp) {
                                                         <td><?php echo htmlspecialchars($role['description'] ?? ''); ?></td>
                                                         <td><?php echo date('Y-m-d', strtotime($role['created_at'])); ?></td>
                                                         <td>
+<<<<<<< HEAD
                                                             <div class="btn-actions">
                                                                 <button type="button" class="permission-btn permission-btn-info" 
                                                                     onclick="editRole(<?php echo $role['role_id']; ?>, '<?php echo htmlspecialchars(addslashes($role['role_name'])); ?>', '<?php echo htmlspecialchars(addslashes($role['description'] ?? '')); ?>')">
@@ -749,6 +915,25 @@ foreach ($rolePermissions as $rp) {
                                                                     <button type="button" class="permission-btn permission-btn-danger" 
                                                                         onclick="deleteRole(<?php echo $role['role_id']; ?>, '<?php echo htmlspecialchars(addslashes($role['role_name'])); ?>')">
                                                                         <span class="permission-icon">🗑️</span>
+=======
+                                                            <div class="btn-group btn-group-sm">
+                                                                <button type="button" class="btn btn-info edit-role" data-bs-toggle="modal" data-bs-target="#editRoleModal" 
+                                                                    data-role-id="<?php echo $role['role_id']; ?>"
+                                                                    data-role-name="<?php echo htmlspecialchars($role['role_name']); ?>"
+                                                                    data-description="<?php echo htmlspecialchars($role['description'] ?? ''); ?>">
+                                                                    <i class="fas fa-edit"></i>
+                                                                </button>
+                                                                <button type="button" class="btn btn-primary manage-permissions" data-bs-toggle="modal" data-bs-target="#managePermissionsModal"
+                                                                    data-role-id="<?php echo $role['role_id']; ?>"
+                                                                    data-role-name="<?php echo htmlspecialchars($role['role_name']); ?>">
+                                                                    <i class="fas fa-key"></i>
+                                                                </button>
+                                                                <?php if ($role['role_id'] > 6): ?>
+                                                                    <button type="button" class="btn btn-danger delete-role" data-bs-toggle="modal" data-bs-target="#deleteRoleModal"
+                                                                        data-role-id="<?php echo $role['role_id']; ?>"
+                                                                        data-role-name="<?php echo htmlspecialchars($role['role_name']); ?>">
+                                                                        <i class="fas fa-trash"></i>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                                                     </button>
                                                                 <?php endif; ?>
                                                             </div>
@@ -767,6 +952,7 @@ foreach ($rolePermissions as $rp) {
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
                 <!-- Permission Management Section -->
                 <div class="permission-row">
                     <div class="permission-col-12">
@@ -780,6 +966,20 @@ foreach ($rolePermissions as $rp) {
                             <div class="permission-card-body">
                                 <div class="permission-table-responsive">
                                     <table id="permissionsTable" class="permission-table">
+=======
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">Permission Management</h5>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPermissionModal">
+                                    <i class="fas fa-plus"></i> Add New Permission
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="permissionsTable" class="table table-striped table-hover">
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
@@ -798,10 +998,18 @@ foreach ($rolePermissions as $rp) {
                                                         <td><?php echo htmlspecialchars($permission['description'] ?? ''); ?></td>
                                                         <td><?php echo date('Y-m-d', strtotime($permission['created_at'])); ?></td>
                                                         <td>
+<<<<<<< HEAD
                                                             <div class="btn-actions">
                                                                 <button type="button" class="permission-btn permission-btn-danger" 
                                                                     onclick="deletePermission(<?php echo $permission['permission_id']; ?>, '<?php echo htmlspecialchars(addslashes($permission['permission_name'])); ?>')">
                                                                     <span class="permission-icon">🗑️</span>
+=======
+                                                            <div class="btn-group btn-group-sm">
+                                                                <button type="button" class="btn btn-danger delete-permission" data-bs-toggle="modal" data-bs-target="#deletePermissionModal"
+                                                                    data-permission-id="<?php echo $permission['permission_id']; ?>"
+                                                                    data-permission-name="<?php echo htmlspecialchars($permission['permission_name']); ?>">
+                                                                    <i class="fas fa-trash"></i>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                                                 </button>
                                                             </div>
                                                         </td>
@@ -822,6 +1030,7 @@ foreach ($rolePermissions as $rp) {
             </div>
         </div>
     </div>
+<<<<<<< HEAD
     <!-- Add Role Modal -->
     <div class="permission-modal" id="addRoleModal">
         <div class="permission-modal-dialog">
@@ -901,11 +1110,86 @@ foreach ($rolePermissions as $rp) {
                         <button type="button" class="btn btn-secondary" onclick="closeModal('deleteRoleModal')">Cancel</button>
                         <button type="button" class="btn btn-danger" id="deleteRoleConfirmBtn" onclick="confirmDelete('deleteRole')">Delete</button>
                         <button type="submit" class="btn btn-danger" id="deleteRoleSubmitBtn" style="display: none;">Delete</button>
+=======
+    <div class="modal fade" id="addRoleModal" tabindex="-1" aria-labelledby="addRoleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addRoleModalLabel">Add New Role</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post">
+                    <div class="modal-body">
+                        <input type="hidden" name="action" value="add_role">
+                        <div class="mb-3">
+                            <label for="roleName" class="form-label">Role Name</label>
+                            <input type="text" class="form-control" id="roleName" name="role_name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="roleDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="roleDescription" name="description" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Add Role</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="editRoleModal" tabindex="-1" aria-labelledby="editRoleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editRoleModalLabel">Edit Role</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post">
+                    <div class="modal-body">
+                        <input type="hidden" name="action" value="update_role">
+                        <input type="hidden" name="role_id" id="editRoleId">
+                        <div class="mb-3">
+                            <label for="editRoleName" class="form-label">Role Name</label>
+                            <input type="text" class="form-control" id="editRoleName" name="role_name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editRoleDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="editRoleDescription" name="description" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="deleteRoleModal" tabindex="-1" aria-labelledby="deleteRoleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteRoleModalLabel">Delete Role</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete the role <span id="deleteRoleName"></span>?</p>
+                    <p class="text-danger">This will also remove all permissions associated with this role.</p>
+                </div>
+                <div class="modal-footer">
+                    <form method="post">
+                        <input type="hidden" name="action" value="delete_role">
+                        <input type="hidden" name="role_id" id="deleteRoleId">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                     </form>
                 </div>
             </div>
         </div>
     </div>
+<<<<<<< HEAD
     <!-- Manage Permissions Modal -->
     <div class="modal" id="managePermissionsModal">
         <div class="modal-dialog modal-lg">
@@ -913,6 +1197,14 @@ foreach ($rolePermissions as $rp) {
                 <div class="modal-header">
                     <h5 class="modal-title">Manage Permissions for <span id="permissionRoleName"></span></h5>
                     <button type="button" class="btn-close" onclick="closeModal('managePermissionsModal')"></button>
+=======
+    <div class="modal fade" id="managePermissionsModal" tabindex="-1" aria-labelledby="managePermissionsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="managePermissionsModalLabel">Manage Permissions for <span id="permissionRoleName"></span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                 </div>
                 <form method="post">
                     <div class="modal-body">
@@ -944,13 +1236,18 @@ foreach ($rolePermissions as $rp) {
                         </div>
                     </div>
                     <div class="modal-footer">
+<<<<<<< HEAD
                         <button type="button" class="btn btn-secondary" onclick="closeModal('managePermissionsModal')">Cancel</button>
+=======
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                         <button type="submit" class="btn btn-primary">Save Permissions</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+<<<<<<< HEAD
     <!-- Add Permission Modal -->
     <div class="modal" id="addPermissionModal">
         <div class="modal-dialog">
@@ -958,6 +1255,14 @@ foreach ($rolePermissions as $rp) {
                 <div class="modal-header">
                     <h5 class="modal-title">Add New Permission</h5>
                     <button type="button" class="btn-close" onclick="closeModal('addPermissionModal')"></button>
+=======
+    <div class="modal fade" id="addPermissionModal" tabindex="-1" aria-labelledby="addPermissionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addPermissionModalLabel">Add New Permission</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                 </div>
                 <form method="post">
                     <div class="modal-body">
@@ -972,13 +1277,18 @@ foreach ($rolePermissions as $rp) {
                         </div>
                     </div>
                     <div class="modal-footer">
+<<<<<<< HEAD
                         <button type="button" class="btn btn-secondary" onclick="closeModal('addPermissionModal')">Cancel</button>
+=======
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                         <button type="submit" class="btn btn-primary">Add Permission</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+<<<<<<< HEAD
     <!-- Delete Permission Modal -->
     <div class="modal" id="deletePermissionModal">
         <div class="modal-dialog">
@@ -1007,5 +1317,78 @@ foreach ($rolePermissions as $rp) {
         </div>
     </div>
     <script src="../../../public/js/dashboard.js"></script>
+=======
+    <div class="modal fade" id="deletePermissionModal" tabindex="-1" aria-labelledby="deletePermissionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deletePermissionModalLabel">Delete Permission</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete the permission <span id="deletePermissionName"></span>?</p>
+                    <p class="text-danger">This will remove this permission from all roles.</p>
+                </div>
+                <div class="modal-footer">
+                    <form method="post">
+                        <input type="hidden" name="action" value="delete_permission">
+                        <input type="hidden" name="permission_id" id="deletePermissionId">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+    </div>
+  </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#rolesTable').DataTable({
+                "order": [[0, "asc"]],
+                "pageLength": 10
+            });
+            $('#permissionsTable').DataTable({
+                "order": [[0, "asc"]],
+                "pageLength": 10
+            });
+            $('.edit-role').click(function() {
+                const roleId = $(this).data('role-id');
+                const roleName = $(this).data('role-name');
+                const description = $(this).data('description');
+                $('#editRoleId').val(roleId);
+                $('#editRoleName').val(roleName);
+                $('#editRoleDescription').val(description);
+            });
+            $('.delete-role').click(function() {
+                const roleId = $(this).data('role-id');
+                const roleName = $(this).data('role-name');
+                $('#deleteRoleId').val(roleId);
+                $('#deleteRoleName').text(roleName);
+            });
+            $('.manage-permissions').click(function() {
+                const roleId = $(this).data('role-id');
+                const roleName = $(this).data('role-name');
+                $('#permissionRoleId').val(roleId);
+                $('#permissionRoleName').text(roleName);
+                $('.permission-checkbox').prop('checked', false);
+                const rolePermissions = <?php echo json_encode($formattedRolePermissions); ?>;
+                if (rolePermissions[roleId]) {
+                    rolePermissions[roleId].forEach(function(permissionId) {
+                        $('#permission' + permissionId).prop('checked', true);
+                    });
+                }
+            });
+            $('.delete-permission').click(function() {
+                const permissionId = $(this).data('permission-id');
+                const permissionName = $(this).data('permission-name');
+                $('#deletePermissionId').val(permissionId);
+                $('#deletePermissionName').text(permissionName);
+            });
+        });
+    </script>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 </body>
 </html>

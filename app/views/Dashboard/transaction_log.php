@@ -1,6 +1,10 @@
 <?php
 error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE);
+<<<<<<< HEAD
 require_once __DIR__ . '/../../appInitializer.php';
+=======
+require_once __DIR__ . '/../../bootstrap.php';
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 require_once __DIR__ . '/../../controllers/AdminController.php';
 if (!isLoggedIn() || !(hasRole('Administrator') || hasRole('Manager'))) {
     header("Location: ../UserAuthentication/Login.php");
@@ -29,6 +33,10 @@ $transactions = $result['transactions'];
 $pagination = $result['pagination'];
 $accounts = $adminController->getAccountsForFilter();
 ?>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,6 +44,7 @@ $accounts = $adminController->getAccountsForFilter();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transaction Log - Banking System</title>
     <link rel="stylesheet" href="../../../public/css/dashboard.css">
+<<<<<<< HEAD
     <link rel="stylesheet" href="../../../public/css/custom.css">
     <link rel="stylesheet" href="../../../public/css/dark-mode.css">
     <style>
@@ -182,10 +191,17 @@ $accounts = $adminController->getAccountsForFilter();
             background-color: var(--hover-color);
         }
     </style>
+=======
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 </head>
 <body>
     <div class="container-fluid">
         <div class="row">
+<<<<<<< HEAD
             <!-- Sidebar -->
             <div class="sidebar">
                 <div class="sidebar-header">
@@ -294,6 +310,84 @@ $accounts = $adminController->getAccountsForFilter();
                         <h5 class="mb-0 d-flex align-items-center">
                             <span class="nav-icon me-2">🔍</span> Filter Transactions
                         </h5>
+=======
+            <div class="col-md-3 col-lg-2 d-md-block bg-dark sidebar">
+                <div class="position-sticky pt-3">
+                    <div class="text-center mb-4">
+                        <h4 class="text-white">Banking System</h4>
+                    </div>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="<?php echo hasRole('Administrator') ? 'admin_dashboard.php' : 'customer_dashboard.php'; ?>">
+                                <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="../AccountDashboard/dd.php">
+                                <i class="fas fa-money-check-alt me-2"></i> Account Management
+                            </a>
+                        </li>
+                        <?php if (hasRole('Administrator')): ?>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="user_management.php">
+                                <i class="fas fa-users me-2"></i> User Management
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="../RoleBasedAccess/PermissionSettings.php">
+                                <i class="fas fa-user-shield me-2"></i> Roles & Permissions
+                            </a>
+                        </li>
+                        <?php endif; ?>
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" href="#">
+                                <i class="fas fa-exchange-alt me-2"></i> Transaction Log
+                            </a>
+                        </li>
+                        <?php if (hasRole('Administrator')): ?>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#">
+                                <i class="fas fa-chart-line me-2"></i> System Analytics
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#">
+                                <i class="fas fa-cogs me-2"></i> System Settings
+                            </a>
+                        </li>
+                        <?php endif; ?>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="../notifications/notificationCenter.php">
+                                <i class="fas fa-bell me-2"></i> Notifications
+                            </a>
+                        </li>
+                        <?php if (hasRole('Administrator')): ?>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="../DataExport/exportWizard.php">
+                                <i class="fas fa-file-export me-2"></i> Data Export
+                            </a>
+                        </li>
+                        <?php endif; ?>
+                        <li class="nav-item mt-5">
+                            <a class="nav-link text-white" href="../../controllers/UserAuthentication/Logout.php">
+                                <i class="fas fa-sign-out-alt me-2"></i> Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Transaction Log</h1>
+                    <div>
+                        <span class="badge bg-<?php echo hasRole('Administrator') ? 'danger' : 'primary'; ?>"><?php echo htmlspecialchars($userRole); ?></span>
+                        <span class="ms-2">Welcome, <?php echo htmlspecialchars($fullName); ?></span>
+                    </div>
+                </div>
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h5 class="mb-0">Filter Transactions</h5>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                     </div>
                     <div class="card-body">
                         <form method="GET" action="transaction_log.php">
@@ -301,17 +395,25 @@ $accounts = $adminController->getAccountsForFilter();
                                 <div class="col-md-6 col-lg-3">
                                     <div class="form-group">
                                         <label for="date_from" class="form-label">Date From</label>
+<<<<<<< HEAD
                                         <div class="datepicker-input">
                                             <input type="text" class="form-control" id="date_from" name="date_from" value="<?php echo htmlspecialchars($filters['date_from']); ?>" placeholder="YYYY-MM-DD">
                                         </div>
+=======
+                                        <input type="text" class="form-control datepicker" id="date_from" name="date_from" value="<?php echo htmlspecialchars($filters['date_from']); ?>" placeholder="YYYY-MM-DD">
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-3">
                                     <div class="form-group">
                                         <label for="date_to" class="form-label">Date To</label>
+<<<<<<< HEAD
                                         <div class="datepicker-input">
                                             <input type="text" class="form-control" id="date_to" name="date_to" value="<?php echo htmlspecialchars($filters['date_to']); ?>" placeholder="YYYY-MM-DD">
                                         </div>
+=======
+                                        <input type="text" class="form-control datepicker" id="date_to" name="date_to" value="<?php echo htmlspecialchars($filters['date_to']); ?>" placeholder="YYYY-MM-DD">
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-3">
@@ -359,18 +461,24 @@ $accounts = $adminController->getAccountsForFilter();
                                 </div>
                                 <div class="col-md-6 col-lg-3 d-flex align-items-end">
                                     <div class="form-group w-100">
+<<<<<<< HEAD
                                         <button type="submit" class="btn btn-primary me-2">
                                             <span class="nav-icon">🔍</span> Apply Filters
                                         </button>
                                         <a href="transaction_log.php" class="btn btn-secondary">
                                             <span class="nav-icon">🔄</span> Reset
                                         </a>
+=======
+                                        <button type="submit" class="btn btn-primary me-2">Apply Filters</button>
+                                        <a href="transaction_log.php" class="btn btn-secondary">Reset</a>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                     </div>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
+<<<<<<< HEAD
                 <!-- Transactions Table -->
                 <div class="card mb-4">
                     <div class="card-header">
@@ -396,12 +504,32 @@ $accounts = $adminController->getAccountsForFilter();
                                         </a>
                                     </div>
                                 </div>
+=======
+                <div class="card mb-4">
+                    <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Transaction Records</h5>
+                        <div>
+                            <span class="badge bg-secondary">Total: <?php echo number_format($pagination['total']); ?></span>
+                            <div class="btn-group ms-2">
+                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                    Export
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">CSV</a></li>
+                                    <li><a class="dropdown-item" href="#">PDF</a></li>
+                                    <li><a class="dropdown-item" href="#">Excel</a></li>
+                                </ul>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
+<<<<<<< HEAD
                             <table class="transaction-table">
+=======
+                            <table class="table table-striped table-hover" id="transactionTable">
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                 <thead>
                                     <tr>
                                         <th>ID</th>
@@ -420,19 +548,27 @@ $accounts = $adminController->getAccountsForFilter();
                                             <td colspan="8" class="text-center">No transactions found</td>
                                         </tr>
                                     <?php else: ?>
+<<<<<<< HEAD
                                         <?php foreach ($transactions as $transaction): 
                                             $typeClass = 'badge-' . $transaction['transaction_type'];
                                         ?>
+=======
+                                        <?php foreach ($transactions as $transaction): ?>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                             <tr>
                                                 <td><?php echo $transaction['transaction_id']; ?></td>
                                                 <td><?php echo $adminController->formatDate($transaction['transaction_date']); ?></td>
                                                 <td><?php echo htmlspecialchars($transaction['account_number']); ?></td>
                                                 <td><?php echo htmlspecialchars($transaction['account_holder']); ?></td>
+<<<<<<< HEAD
                                                 <td>
                                                     <span class="transaction-badge <?php echo $typeClass; ?>">
                                                         <?php echo ucfirst($transaction['transaction_type']); ?>
                                                     </span>
                                                 </td>
+=======
+                                                <td><?php echo $adminController->getTransactionTypeBadge($transaction['transaction_type']); ?></td>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                                 <td><?php echo $adminController->formatCurrency($transaction['amount']); ?></td>
                                                 <td><?php echo htmlspecialchars($transaction['description']); ?></td>
                                                 <td><?php echo $adminController->formatCurrency($transaction['balance_after']); ?></td>
@@ -446,15 +582,25 @@ $accounts = $adminController->getAccountsForFilter();
                     <div class="card-footer">
                         <?php if ($pagination['total_pages'] > 1): ?>
                             <nav>
+<<<<<<< HEAD
                                 <ul class="pagination">
+=======
+                                <ul class="pagination justify-content-center">
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                     <?php
                                         $queryParams = $_GET;
                                         if ($page > 1) {
                                             $queryParams['page'] = $page - 1;
                                             $prevUrl = 'transaction_log.php?' . http_build_query($queryParams);
+<<<<<<< HEAD
                                             echo '<li class="pagination-item"><a class="pagination-link" href="' . $prevUrl . '">&laquo; Previous</a></li>';
                                         } else {
                                             echo '<li class="pagination-item"><span class="pagination-link disabled">&laquo; Previous</span></li>';
+=======
+                                            echo '<li class="page-item"><a class="page-link" href="' . $prevUrl . '">&laquo; Previous</a></li>';
+                                        } else {
+                                            echo '<li class="page-item disabled"><span class="page-link">&laquo; Previous</span></li>';
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                         }
                                         $startPage = max(1, $page - 2);
                                         $endPage = min($pagination['total_pages'], $page + 2);
@@ -462,17 +608,29 @@ $accounts = $adminController->getAccountsForFilter();
                                             $queryParams['page'] = $i;
                                             $url = 'transaction_log.php?' . http_build_query($queryParams);
                                             if ($i == $page) {
+<<<<<<< HEAD
                                                 echo '<li class="pagination-item"><span class="pagination-link active">' . $i . '</span></li>';
                                             } else {
                                                 echo '<li class="pagination-item"><a class="pagination-link" href="' . $url . '">' . $i . '</a></li>';
+=======
+                                                echo '<li class="page-item active"><span class="page-link">' . $i . '</span></li>';
+                                            } else {
+                                                echo '<li class="page-item"><a class="page-link" href="' . $url . '">' . $i . '</a></li>';
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                             }
                                         }
                                         if ($page < $pagination['total_pages']) {
                                             $queryParams['page'] = $page + 1;
                                             $nextUrl = 'transaction_log.php?' . http_build_query($queryParams);
+<<<<<<< HEAD
                                             echo '<li class="pagination-item"><a class="pagination-link" href="' . $nextUrl . '">Next &raquo;</a></li>';
                                         } else {
                                             echo '<li class="pagination-item"><span class="pagination-link disabled">Next &raquo;</span></li>';
+=======
+                                            echo '<li class="page-item"><a class="page-link" href="' . $nextUrl . '">Next &raquo;</a></li>';
+                                        } else {
+                                            echo '<li class="page-item disabled"><span class="page-link">Next &raquo;</span></li>';
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                         }
                                     ?>
                                 </ul>
@@ -483,6 +641,7 @@ $accounts = $adminController->getAccountsForFilter();
             </div>
         </div>
     </div>
+<<<<<<< HEAD
     
     <!-- Dark Mode Toggle -->
     <div class="dark-mode-toggle" data-tooltip="Toggle Dark Mode">
@@ -535,3 +694,18 @@ $accounts = $adminController->getAccountsForFilter();
     </script>
 </body>
 </html> 
+=======
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        flatpickr(".datepicker", {
+            dateFormat: "Y-m-d",
+            allowInput: true
+        });
+    </script>
+</body>
+</html>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc

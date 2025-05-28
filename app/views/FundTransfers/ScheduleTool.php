@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿<?php
 error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE);
 require_once __DIR__ . '/../../appInitializer.php';
@@ -398,3 +399,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['schedule_transfer']))
     </script>
 </body>
 </html>
+=======
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Schedule Tool</title>
+  <link rel="stylesheet" href="../../../public/css/FundTransfers/ScheduleTool.css" />
+</head>
+<body>
+  <div class="container">
+    <h2 class="heading">Schedule a Transfer</h2>
+    <form>
+      <div class="form-card">
+        <div class="form-group">
+          <label for="startDate" class="form-label">Start Date</label>
+          <input type="date" class="form-control" id="startDate" required />
+        </div>
+        <div class="form-group">
+          <label for="frequency" class="form-label">Frequency</label>
+          <select id="frequency" class="form-control" required>
+            <option value="">Select Frequency</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+            <option value="quarterly">Quarterly</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="endDate" class="form-label">End Date</label>
+          <input type="date" class="form-control" id="endDate" />
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-submit">Schedule</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <script src="../../../public/js/FundTransfers.js"></script>
+</body>
+</html>
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc

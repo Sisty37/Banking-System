@@ -7,6 +7,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<p style='color:red;'>Invalid email address.</p>";
     } else {
         echo "<p style='color:green;'>If this email exists, a reset link has been sent.</p>";
+<<<<<<< HEAD
+=======
+       
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     }
 }
 ?>

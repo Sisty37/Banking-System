@@ -1,6 +1,10 @@
 <?php
 error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE);
+<<<<<<< HEAD
 require_once __DIR__ . '/../../appInitializer.php';
+=======
+require_once __DIR__ . '/../../bootstrap.php';
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 require_once __DIR__ . '/../../controllers/AdminController.php';
 if (!isLoggedIn() || !hasRole('Administrator')) {
     header("Location: ../UserAuthentication/Login.php");
@@ -25,6 +29,10 @@ if (!in_array($activeTab, ['general', 'appearance', 'security', 'financial', 'no
 }
 $settings = $adminController->getSettingsByCategory($activeTab);
 ?>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,6 +40,7 @@ $settings = $adminController->getSettingsByCategory($activeTab);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>System Settings - Banking System</title>
     <link rel="stylesheet" href="../../../public/css/dashboard.css">
+<<<<<<< HEAD
     <link rel="stylesheet" href="../../../public/css/custom.css">
     <link rel="stylesheet" href="../../../public/css/dark-mode.css">
     <style>
@@ -151,12 +160,35 @@ $settings = $adminController->getSettingsByCategory($activeTab);
             background-color: var(--secondary-color);
             color: white;
             border: 1px solid var(--border-color);
+=======
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .settings-card {
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .nav-tabs .nav-link {
+            color: #495057;
+        }
+        .nav-tabs .nav-link.active {
+            font-weight: bold;
+            color: #0d6efd;
+        }
+        .form-label {
+            font-weight: 500;
+        }
+        .setting-description {
+            font-size: 0.85rem;
+            color: #6c757d;
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
         }
     </style>
 </head>
 <body>
     <div class="container-fluid">
         <div class="row">
+<<<<<<< HEAD
             <!-- Sidebar -->
             <div class="sidebar">
                 <div class="sidebar-header">
@@ -292,6 +324,137 @@ $settings = $adminController->getSettingsByCategory($activeTab);
                             'financial' => '💰',
                             'notifications' => '🔔',
                             'legal' => '📜'
+=======
+            <div class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-4 mt-2">
+                            <a class="navbar-brand text-white" href="#">
+                                <i class="fas fa-university me-2"></i>Banking System
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="admin_dashboard.php">
+                                <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="transaction_log.php">
+                                <i class="fas fa-exchange-alt me-2"></i> Transaction Log
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="user_management.php">
+                                <i class="fas fa-users me-2"></i> User Management
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="system_analytics.php">
+                                <i class="fas fa-chart-line me-2"></i> System Analytics
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" href="system_settings.php">
+                                <i class="fas fa-cogs me-2"></i> System Settings
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="../notifications/notificationCenter.php">
+                                <i class="fas fa-bell me-2"></i> Notifications
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="../DataExport/exportWizard.php">
+                                <i class="fas fa-file-export me-2"></i> Data Export
+                            </a>
+                        </li>
+                        <li class="nav-item mt-5">
+                            <a class="nav-link text-white" href="../../controllers/UserAuthentication/Logout.php">
+                                <i class="fas fa-sign-out-alt me-2"></i> Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">System Settings</h1>
+                    <div class="d-flex align-items-center">
+                        <div class="notification-dropdown me-4">
+                            <div class="notification-icon">
+                                <i class="fas fa-bell"></i>
+                                <span class="notification-badge">3</span>
+                            </div>
+                            <div class="notification-dropdown-content">
+                                <div class="notification-header">
+                                    <h6 class="notification-title">Notifications</h6>
+                                    <a href="../notifications/notificationCenter.php" class="text-decoration-none">
+                                        <i class="fas fa-cog"></i>
+                                    </a>
+                                </div>
+                                <ul class="notification-list">
+                                </ul>
+                                <div class="notification-footer">
+                                    <a href="../notifications/notificationCenter.php">View All Notifications</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <div class="btn-group me-2">
+                                <a href="admin_dashboard.php" class="btn btn-sm btn-outline-secondary">Back to Dashboard</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php if (isset($message) && !empty($message)): ?>
+                <div class="alert alert-<?php echo $messageType; ?> alert-dismissible fade show" role="alert">
+                    <?php echo $message; ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <?php endif; ?>
+                <ul class="nav nav-tabs mb-4">
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo $activeTab === 'general' ? 'active' : ''; ?>" href="?tab=general">
+                            <i class="fas fa-sliders-h me-1"></i> General
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo $activeTab === 'appearance' ? 'active' : ''; ?>" href="?tab=appearance">
+                            <i class="fas fa-palette me-1"></i> Appearance
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo $activeTab === 'security' ? 'active' : ''; ?>" href="?tab=security">
+                            <i class="fas fa-shield-alt me-1"></i> Security
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo $activeTab === 'financial' ? 'active' : ''; ?>" href="?tab=financial">
+                            <i class="fas fa-dollar-sign me-1"></i> Financial
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo $activeTab === 'notifications' ? 'active' : ''; ?>" href="?tab=notifications">
+                            <i class="fas fa-bell me-1"></i> Notifications
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo $activeTab === 'legal' ? 'active' : ''; ?>" href="?tab=legal">
+                            <i class="fas fa-gavel me-1"></i> Legal
+                        </a>
+                    </li>
+                </ul>
+                <div class="card settings-card">
+                    <div class="card-header bg-primary text-white">
+                        <?php
+                        $tabIcons = [
+                            'general' => 'sliders-h',
+                            'appearance' => 'palette',
+                            'security' => 'shield-alt',
+                            'financial' => 'dollar-sign',
+                            'notifications' => 'bell',
+                            'legal' => 'gavel'
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                         ];
                         $tabTitles = [
                             'general' => 'General Settings',
@@ -302,9 +465,13 @@ $settings = $adminController->getSettingsByCategory($activeTab);
                             'legal' => 'Legal Documents'
                         ];
                         ?>
+<<<<<<< HEAD
                         <h5 class="mb-0 d-flex align-items-center">
                             <span class="nav-icon me-2"><?php echo $tabIcons[$activeTab]; ?></span> <?php echo $tabTitles[$activeTab]; ?>
                         </h5>
+=======
+                        <h5><i class="fas fa-<?php echo $tabIcons[$activeTab]; ?> me-2"></i> <?php echo $tabTitles[$activeTab]; ?></h5>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                     </div>
                     <div class="card-body">
                         <form method="POST" action="system_settings.php?tab=<?php echo $activeTab; ?>">
@@ -419,12 +586,18 @@ $settings = $adminController->getSettingsByCategory($activeTab);
                                 </div>
                             <?php elseif ($activeTab === 'security'): ?>
                                 <div class="mb-3">
+<<<<<<< HEAD
                                     <div class="form-switch">
                                         <label class="switch-toggle">
                                             <input type="checkbox" id="maintenance_mode" name="maintenance_mode" value="on" <?php echo ($settings['maintenance_mode'] ?? 'off') === 'on' ? 'checked' : ''; ?>>
                                             <span class="slider"></span>
                                         </label>
                                         <label for="maintenance_mode">Maintenance Mode</label>
+=======
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="maintenance_mode" name="maintenance_mode" value="on" <?php echo ($settings['maintenance_mode'] ?? 'off') === 'on' ? 'checked' : ''; ?>>
+                                        <label class="form-check-label" for="maintenance_mode">Maintenance Mode</label>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                     </div>
                                     <div class="setting-description">When enabled, only administrators can access the system.</div>
                                 </div>
@@ -434,12 +607,18 @@ $settings = $adminController->getSettingsByCategory($activeTab);
                                     <div class="setting-description">Message displayed to users when in maintenance mode.</div>
                                 </div>
                                 <div class="mb-3">
+<<<<<<< HEAD
                                     <div class="form-switch">
                                         <label class="switch-toggle">
                                             <input type="checkbox" id="enable_new_registrations" name="enable_new_registrations" value="on" <?php echo ($settings['enable_new_registrations'] ?? 'on') === 'on' ? 'checked' : ''; ?>>
                                             <span class="slider"></span>
                                         </label>
                                         <label for="enable_new_registrations">Enable New Registrations</label>
+=======
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="enable_new_registrations" name="enable_new_registrations" value="on" <?php echo ($settings['enable_new_registrations'] ?? 'on') === 'on' ? 'checked' : ''; ?>>
+                                        <label class="form-check-label" for="enable_new_registrations">Enable New Registrations</label>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                     </div>
                                     <div class="setting-description">Allow new users to register for accounts.</div>
                                 </div>
@@ -467,22 +646,34 @@ $settings = $adminController->getSettingsByCategory($activeTab);
                                     </div>
                                 </div>
                                 <div class="mb-3">
+<<<<<<< HEAD
                                     <div class="form-switch">
                                         <label class="switch-toggle">
                                             <input type="checkbox" id="enable_2fa" name="enable_2fa" value="on" <?php echo ($settings['enable_2fa'] ?? 'off') === 'on' ? 'checked' : ''; ?>>
                                             <span class="slider"></span>
                                         </label>
                                         <label for="enable_2fa">Enable Two-Factor Authentication</label>
+=======
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="enable_2fa" name="enable_2fa" value="on" <?php echo ($settings['enable_2fa'] ?? 'off') === 'on' ? 'checked' : ''; ?>>
+                                        <label class="form-check-label" for="enable_2fa">Enable Two-Factor Authentication</label>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                     </div>
                                     <div class="setting-description">Require 2FA for all user logins.</div>
                                 </div>
                                 <div class="mb-3">
+<<<<<<< HEAD
                                     <div class="form-switch">
                                         <label class="switch-toggle">
                                             <input type="checkbox" id="allow_password_reset" name="allow_password_reset" value="on" <?php echo ($settings['allow_password_reset'] ?? 'on') === 'on' ? 'checked' : ''; ?>>
                                             <span class="slider"></span>
                                         </label>
                                         <label for="allow_password_reset">Allow Password Reset</label>
+=======
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="allow_password_reset" name="allow_password_reset" value="on" <?php echo ($settings['allow_password_reset'] ?? 'on') === 'on' ? 'checked' : ''; ?>>
+                                        <label class="form-check-label" for="allow_password_reset">Allow Password Reset</label>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                     </div>
                                     <div class="setting-description">Allow users to reset passwords via email.</div>
                                 </div>
@@ -527,22 +718,34 @@ $settings = $adminController->getSettingsByCategory($activeTab);
                                 </div>
                             <?php elseif ($activeTab === 'notifications'): ?>
                                 <div class="mb-3">
+<<<<<<< HEAD
                                     <div class="form-switch">
                                         <label class="switch-toggle">
                                             <input type="checkbox" id="notification_emails_enabled" name="notification_emails_enabled" value="on" <?php echo ($settings['notification_emails_enabled'] ?? 'on') === 'on' ? 'checked' : ''; ?>>
                                             <span class="slider"></span>
                                         </label>
                                         <label for="notification_emails_enabled">Enable Email Notifications</label>
+=======
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="notification_emails_enabled" name="notification_emails_enabled" value="on" <?php echo ($settings['notification_emails_enabled'] ?? 'on') === 'on' ? 'checked' : ''; ?>>
+                                        <label class="form-check-label" for="notification_emails_enabled">Enable Email Notifications</label>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                     </div>
                                     <div class="setting-description">Send users email notifications for important events.</div>
                                 </div>
                                 <div class="mb-3">
+<<<<<<< HEAD
                                     <div class="form-switch">
                                         <label class="switch-toggle">
                                             <input type="checkbox" id="notification_sms_enabled" name="notification_sms_enabled" value="on" <?php echo ($settings['notification_sms_enabled'] ?? 'off') === 'on' ? 'checked' : ''; ?>>
                                             <span class="slider"></span>
                                         </label>
                                         <label for="notification_sms_enabled">Enable SMS Notifications</label>
+=======
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="notification_sms_enabled" name="notification_sms_enabled" value="on" <?php echo ($settings['notification_sms_enabled'] ?? 'off') === 'on' ? 'checked' : ''; ?>>
+                                        <label class="form-check-label" for="notification_sms_enabled">Enable SMS Notifications</label>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                     </div>
                                     <div class="setting-description">Send users SMS notifications for important events.</div>
                                 </div>
@@ -560,7 +763,11 @@ $settings = $adminController->getSettingsByCategory($activeTab);
                             <?php endif; ?>
                             <div class="mt-4 text-end">
                                 <button type="submit" name="update_settings" class="btn btn-primary">
+<<<<<<< HEAD
                                     <span class="nav-icon">💾</span> Save Settings
+=======
+                                    <i class="fas fa-save me-2"></i> Save Settings
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
                                 </button>
                             </div>
                         </form>
@@ -569,6 +776,7 @@ $settings = $adminController->getSettingsByCategory($activeTab);
             </div>
         </div>
     </div>
+<<<<<<< HEAD
     
     <!-- Dark Mode Toggle -->
     <div class="dark-mode-toggle" data-tooltip="Toggle Dark Mode">
@@ -610,3 +818,9 @@ $settings = $adminController->getSettingsByCategory($activeTab);
     </script>
 </body>
 </html> 
+=======
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../public/js/notification.js"></script>
+</body>
+</html>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc

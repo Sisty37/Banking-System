@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 body {
     margin: 0;
@@ -50,3 +51,62 @@ body {
     background-color: #003d80;
   }
   
+=======
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #eef5ff;
+}
+
+.container {
+  max-width: 650px;
+  margin: auto;
+  padding: 20px;
+}
+
+h2 {
+  color: #004085;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 6px 16px rgba(0, 64, 133, 0.1);
+}
+
+.form-label {
+  font-weight: 600;
+  color: #003366;
+  margin-bottom: 6px;
+}
+
+.form-control,
+.form-select {
+  border-radius: 10px;
+  border: 1px solid #c2d3ea;
+  padding: 12px;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.btn-primary {
+  background-color: #0056b3;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 24px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+  width: auto;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #003d80;
+}
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc

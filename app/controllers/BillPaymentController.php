@@ -2,12 +2,17 @@
 class BillPaymentController {
     private $billPaymentModel;
     private $accountModel;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function __construct() {
         require_once __DIR__ . '/../models/BillPaymentModel.php';
         require_once __DIR__ . '/../models/AccountModel.php';
         $this->billPaymentModel = new BillPaymentModel();
         $this->accountModel = new AccountModel();
     }
+<<<<<<< HEAD
     public function getBillCategories() {
         return $this->billPaymentModel->getBillCategories();
     }
@@ -17,6 +22,21 @@ class BillPaymentController {
     public function getBillerById($billerId) {
         return $this->billPaymentModel->getBillerById($billerId);
     }
+=======
+
+    public function getBillCategories() {
+        return $this->billPaymentModel->getBillCategories();
+    }
+
+    public function getBillersByCategory($categoryId) {
+        return $this->billPaymentModel->getBillersByCategory($categoryId);
+    }
+
+    public function getBillerById($billerId) {
+        return $this->billPaymentModel->getBillerById($billerId);
+    }
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function addSavedBiller($userId, $billerId, $accountNickname, $accountNumber) {
         if (empty($userId) || empty($billerId) || empty($accountNickname) || empty($accountNumber)) {
             return [
@@ -51,9 +71,17 @@ class BillPaymentController {
             ];
         }
     }
+<<<<<<< HEAD
     public function getUserSavedBillers($userId) {
         return $this->billPaymentModel->getUserSavedBillers($userId);
     }
+=======
+
+    public function getUserSavedBillers($userId) {
+        return $this->billPaymentModel->getUserSavedBillers($userId);
+    }
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function updateSavedBiller($savedBillerId, $userId, $accountNickname, $accountNumber) {
         if (empty($savedBillerId) || empty($userId) || empty($accountNickname) || empty($accountNumber)) {
             return [
@@ -87,6 +115,10 @@ class BillPaymentController {
             ];
         }
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function deleteSavedBiller($savedBillerId, $userId) {
         if (empty($savedBillerId) || empty($userId)) {
             return [
@@ -114,6 +146,10 @@ class BillPaymentController {
             ];
         }
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function makeBillPayment($userId, $billerId, $accountNumber, $amount, $sourceAccountId, $description = '') {
         if (empty($userId) || empty($billerId) || empty($accountNumber) || empty($amount) || empty($sourceAccountId)) {
             return [
@@ -171,9 +207,17 @@ class BillPaymentController {
             ];
         }
     }
+<<<<<<< HEAD
     public function getBillPaymentHistory($userId) {
         return $this->billPaymentModel->getBillPaymentHistory($userId);
     }
+=======
+
+    public function getBillPaymentHistory($userId) {
+        return $this->billPaymentModel->getBillPaymentHistory($userId);
+    }
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function schedulePayment($userId, $billerId, $accountNumber, $amount, $sourceAccountId, $scheduledDate, $recurring = false, $frequency = '', $description = '') {
         if (empty($userId) || empty($billerId) || empty($accountNumber) || empty($amount) || empty($sourceAccountId) || empty($scheduledDate)) {
             return [
@@ -239,9 +283,17 @@ class BillPaymentController {
             ];
         }
     }
+<<<<<<< HEAD
     public function getScheduledPayments($userId) {
         return $this->billPaymentModel->getScheduledPayments($userId);
     }
+=======
+
+    public function getScheduledPayments($userId) {
+        return $this->billPaymentModel->getScheduledPayments($userId);
+    }
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function cancelScheduledPayment($scheduledPaymentId, $userId) {
         if (empty($scheduledPaymentId) || empty($userId)) {
             return [
@@ -262,8 +314,16 @@ class BillPaymentController {
             ];
         }
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
     public function getBillPaymentStatistics($userId) {
         return $this->billPaymentModel->getBillPaymentStatistics($userId);
     }
 }
+<<<<<<< HEAD
 ?> 
+=======
+?>
+>>>>>>> 07df6103b61152c961a82ee25b5e7fdec8a5cadc
