@@ -1,144 +1,169 @@
 <?php
-require_once __DIR__ . '/../Models/UserModel.php';
-class AccountController {
-    private $userModel;
+require_once __DIR__ . '/../core/Controller.php';
+
+class AccountController extends Controller {
     public function __construct() {
-        $this->userModel = new UserModel();
+        // Require login for all account-related actions
+        $this->requireLogin();
     }
-    public function getUserAccounts($userId) {
-        return $this->userModel->getUserAccounts($userId);
-    }
-    public function getAccountDetails($accountId) {
-        return $this->userModel->getAccountDetails($accountId);
-    }
-    public function getRecentTransactions($accountId, $limit = 5) {
-        return $this->userModel->getRecentTransactions($accountId, $limit);
-    }
-    public function createAccount($userId, $accountType, $initialBalance = 0.00) {
-        if (!$this->hasAccountManagementPermission()) {
-            return [
-                "success" => false, 
-                "message" => "You don't have permission to create accounts"
-            ];
-        }
-        $accountNumber = $this->generateUniqueAccountNumber();
-        return $this->userModel->createAccount($userId, $accountNumber, $accountType, $initialBalance);
-    }
-    public function generateUniqueAccountNumber() {
-        return $this->userModel->generateUniqueAccountNumber();
-    }
-    public function getAllUsers() {
-        if (!$this->hasAccountManagementPermission()) {
-            return [];
-        }
-        return $this->userModel->getAllUsers();
-    }
-    public function hasAccountManagementPermission() {
-        if (!isset($_SESSION['role'])) {
-            return false;
-        }
-        $role = $_SESSION['role'];
-        return ($role === 'Administrator' || $role === 'Manager');
-    }
-    public function formatCurrency($amount) {
-        return '$' . number_format($amount, 2);
-    }
-    public function formatDate($date) {
-        return date('M d, Y', strtotime($date));
-    }
-    public function getAccountStatusBadge($isActive) {
-        if ($isActive) {
-            return '<span class="badge bg-success">Active</span>';
-        } else {
-            return '<span class="badge bg-danger">Inactive</span>';
-        }
-    }
-    public function getTransactionTypeBadge($type) {
-        switch (strtolower($type)) {
-            case 'deposit':
-                return '<span class="badge bg-success">Deposit</span>';
-            case 'withdrawal':
-                return '<span class="badge bg-danger">Withdrawal</span>';
-            case 'transfer':
-                return '<span class="badge bg-primary">Transfer</span>';
-            case 'payment':
-                return '<span class="badge bg-warning">Payment</span>';
-            default:
-                return '<span class="badge bg-secondary">' . ucfirst($type) . '</span>';
-        }
-    }
-    public function getAccountTypes() {
-        return [
-            'Savings' => 'Savings Account',
-            'Checking' => 'Checking Account',
-            'Money Market' => 'Money Market Account',
-            'Certificate of Deposit' => 'Certificate of Deposit (CD)',
-            'IRA' => 'Individual Retirement Account (IRA)'
+    
+    public function index() {
+        $userId = $_SESSION['user_id'];
+        
+        // Get user accounts
+        $accountModel = $this->model('Account');
+        $accounts = $accountModel->getAccountsByUserId($userId);
+        
+        // Prepare data for view
+        $data = [
+            'accounts' => $accounts,
+            'user' => $this->getCurrentUser()
         ];
+        
+        // Load accounts view
+        $this->view('accounts/index', $data);
     }
-    public function transferBetweenAccounts($fromAccountId, $toAccountId, $amount, $description = 'Fund Transfer') {
-        $fromAccount = $this->userModel->getAccountDetails($fromAccountId);
-        $toAccount = $this->userModel->getAccountDetails($toAccountId);
-        if (!$fromAccount || !$toAccount) {
-            return [
-                "success" => false,
-                "message" => "One or both accounts could not be found."
-            ];
-        }
-        if ($fromAccount['user_id'] !== $_SESSION['user_id']) {
-            return [
-                "success" => false,
-                "message" => "You do not have permission to transfer from this account."
-            ];
-        }
-        if ($fromAccount['account_id'] === $toAccount['account_id']) {
-            return [
-                "success" => false,
-                "message" => "Cannot transfer to the same account."
-            ];
-        }
-        if ($fromAccount['balance'] < $amount) {
-            return [
-                "success" => false,
-                "message" => "Insufficient funds in source account."
-            ];
-        }
-        return $this->userModel->transferFunds($fromAccountId, $toAccountId, $amount, $description);
+    
+    public function create() {
+        // Prepare data for view
+        $data = [
+            'user' => $this->getCurrentUser()
+        ];
+        
+        // Load create account view
+        $this->view('accounts/create', $data);
     }
-    public function transferToExternalAccount($fromAccountId, $toAccountNumber, $amount, $description = 'Fund Transfer') {
-        $fromAccount = $this->userModel->getAccountDetails($fromAccountId);
-        if (!$fromAccount) {
-            return [
-                "success" => false,
-                "message" => "Source account could not be found."
-            ];
+    
+    public function store() {
+        // Check if it's a POST request
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->redirect('/accounts');
+            return;
         }
-        if ($fromAccount['user_id'] !== $_SESSION['user_id']) {
-            return [
-                "success" => false,
-                "message" => "You do not have permission to transfer from this account."
-            ];
+        
+        // Get form data
+        $accountType = $_POST['account_type'] ?? '';
+        $initialDeposit = $_POST['initial_deposit'] ?? 0;
+        
+        // Validate data
+        $errors = [];
+        
+        if (empty($accountType)) {
+            $errors[] = "Account type is required.";
         }
-        if ($fromAccount['balance'] < $amount) {
-            return [
-                "success" => false,
-                "message" => "Insufficient funds in source account."
-            ];
+        
+        if (empty($initialDeposit) || !is_numeric($initialDeposit) || $initialDeposit < 0) {
+            $errors[] = "Valid initial deposit amount is required.";
         }
-        $toAccount = $this->userModel->getAccountByNumber($toAccountNumber);
-        if (!$toAccount) {
-            return [
-                "success" => false,
-                "message" => "Destination account not found. Please verify the account number."
-            ];
+        
+        // If there are errors, redirect back with errors
+        if (!empty($errors)) {
+            $_SESSION['errors'] = $errors;
+            $_SESSION['old_input'] = $_POST;
+            $this->redirect('/accounts/create');
+            return;
         }
-        if ($fromAccount['account_id'] === $toAccount['account_id']) {
-            return [
-                "success" => false,
-                "message" => "Cannot transfer to the same account."
+        
+        // Process account creation
+        try {
+            $accountModel = $this->model('Account');
+            $transactionModel = $this->model('Transaction');
+            $notificationModel = $this->model('Notification');
+            
+            // Generate account number
+            $accountNumber = $accountModel->generateAccountNumber();
+            
+            // Prepare account data
+            $accountData = [
+                'user_id' => $_SESSION['user_id'],
+                'account_number' => $accountNumber,
+                'account_type' => $accountType,
+                'balance' => $initialDeposit,
+                'status' => 'active'
             ];
+            
+            // Create the account
+            $accountId = $accountModel->create($accountData);
+            
+            if (!$accountId) {
+                throw new Exception("Failed to create account.");
+            }
+            
+            // If initial deposit is greater than 0, create a deposit transaction
+            if ($initialDeposit > 0) {
+                // Generate reference number
+                $referenceNumber = $transactionModel->generateReferenceNumber();
+                
+                // Create transaction record
+                $transactionData = [
+                    'account_id' => $accountId,
+                    'user_id' => $_SESSION['user_id'],
+                    'transaction_type' => 'deposit',
+                    'amount' => $initialDeposit,
+                    'description' => "Initial deposit for new {$accountType} account",
+                    'reference_number' => $referenceNumber,
+                    'status' => 'completed'
+                ];
+                
+                $transactionId = $transactionModel->create($transactionData);
+                
+                if (!$transactionId) {
+                    throw new Exception("Failed to create initial deposit transaction.");
+                }
+            }
+            
+            // Create notification
+            $notificationModel->createAccountOpenNotification(
+                $_SESSION['user_id'],
+                $accountType,
+                $accountNumber
+            );
+            
+            // Set success message
+            $this->setFlashMessage('success', 'Account created successfully.');
+            
+            // Redirect to accounts page
+            $this->redirect('/accounts');
+            
+        } catch (Exception $e) {
+            // Set error message and redirect back
+            $this->setFlashMessage('error', 'Account creation failed: ' . $e->getMessage());
+            $_SESSION['old_input'] = $_POST;
+            $this->redirect('/accounts/create');
         }
-        return $this->userModel->transferFunds($fromAccountId, $toAccount['account_id'], $amount, $description);
     }
-}
-?> 
+    
+    public function viewAccount() {
+        $accountId = $_GET['id'] ?? '';
+        
+        if (empty($accountId)) {
+            $this->redirect('/accounts');
+            return;
+        }
+        
+        // Get account details
+        $accountModel = $this->model('Account');
+        $account = $accountModel->getAccountById($accountId);
+        
+        // Check if account exists and belongs to the user
+        if (!$account || $account['user_id'] != $_SESSION['user_id']) {
+            $this->setFlashMessage('error', 'Account not found or you do not have permission to view it.');
+            $this->redirect('/accounts');
+            return;
+        }
+        
+        // Get recent transactions for this account
+        $transactionModel = $this->model('Transaction');
+        $recentTransactions = $transactionModel->getRecentTransactionsByAccountId($accountId, 5);
+        
+        // Prepare data for view
+        $data = [
+            'account' => (object)$account, // Convert to object for easier view access
+            'recentTransactions' => $recentTransactions,
+            'user' => $this->getCurrentUser()
+        ];
+        
+        // Load account details view
+        $this->view('accounts/show', $data);
+    }
+} 

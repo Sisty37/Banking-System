@@ -1,0 +1,675 @@
+/* 
+ * Banking System - Authentication Stylesheet
+ * 
+ * Contents:
+ * 1. Auth Layout
+ * 2. Auth Forms
+ * 3. Login Page
+ * 4. Register Page
+ * 5. Password Reset
+ * 6. Two-Factor Authentication
+ */
+
+/* ====================== 1. Auth Layout ====================== */
+.auth-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background-color: var(--color-light);
+    background-image: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, rgba(52, 152, 219, 0.05) 100%);
+}
+
+.auth-wrapper {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.auth-brand {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.auth-brand img {
+    max-width: 150px;
+    margin-bottom: 1rem;
+}
+
+.auth-brand h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+}
+
+.auth-brand p {
+    color: var(--color-gray);
+    font-size: 1rem;
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 2rem;
+    color: var(--color-gray);
+    font-size: 0.875rem;
+}
+
+.auth-links {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.auth-links a {
+    margin: 0 0.5rem;
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.auth-links a:hover {
+    text-decoration: underline;
+}
+
+/* Auth with side image */
+.auth-split {
+    display: flex;
+    min-height: 100vh;
+}
+
+.auth-split-image {
+    flex: 1;
+    background-color: var(--color-primary);
+    background-image: url('../img/auth-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: none;
+}
+
+.auth-split-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(52, 152, 219, 0.8) 0%, rgba(44, 62, 80, 0.9) 100%);
+    z-index: 1;
+}
+
+.auth-split-content {
+    position: relative;
+    z-index: 2;
+    color: var(--color-white);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.auth-split-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--color-white);
+}
+
+.auth-split-content p {
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.auth-split-form {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+@media (min-width: 992px) {
+    .auth-split-image {
+        display: block;
+    }
+}
+
+/* ====================== 2. Auth Forms ====================== */
+.auth-card {
+    background-color: var(--color-white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+}
+
+.auth-card-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--color-gray-light);
+    text-align: center;
+}
+
+.auth-card-header h2 {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.auth-card-header p {
+    color: var(--color-gray);
+    margin-bottom: 0;
+}
+
+.auth-card-body {
+    padding: 1.5rem;
+}
+
+.auth-form-group {
+    margin-bottom: 1.25rem;
+}
+
+.auth-form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.auth-form-control {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--color-dark);
+    background-color: var(--color-white);
+    background-clip: padding-box;
+    border: 1px solid var(--color-gray-light);
+    border-radius: var(--border-radius);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.auth-form-control:focus {
+    color: var(--color-dark);
+    background-color: var(--color-white);
+    border-color: var(--color-primary);
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+.auth-form-text {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: var(--color-gray);
+}
+
+.auth-btn {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border: none;
+    border-radius: var(--border-radius);
+    transition: all 0.2s ease-in-out;
+}
+
+.auth-btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+.auth-btn-primary:hover {
+    background-color: var(--color-primary-dark);
+}
+
+.auth-divider {
+    text-align: center;
+    margin: 1.5rem 0;
+    position: relative;
+}
+
+.auth-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: var(--color-gray-light);
+    z-index: 1;
+}
+
+.auth-divider span {
+    position: relative;
+    z-index: 2;
+    background-color: var(--color-white);
+    padding: 0 1rem;
+    color: var(--color-gray);
+    font-size: 0.875rem;
+}
+
+.auth-social-btns {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.auth-social-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem;
+    border-radius: var(--border-radius);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gray-light);
+    color: var(--color-dark);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.auth-social-btn:hover {
+    background-color: var(--color-light);
+}
+
+.auth-social-btn i {
+    margin-right: 0.5rem;
+    font-size: 1.25rem;
+}
+
+.auth-social-btn.google i {
+    color: #db4437;
+}
+
+.auth-social-btn.facebook i {
+    color: #4267B2;
+}
+
+.auth-social-btn.twitter i {
+    color: #1DA1F2;
+}
+
+.auth-form-check {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.auth-form-check-input {
+    margin-right: 0.5rem;
+}
+
+.auth-form-check-label {
+    font-size: 0.875rem;
+}
+
+.auth-forgot-password {
+    display: block;
+    text-align: right;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.auth-forgot-password:hover {
+    text-decoration: underline;
+}
+
+/* ====================== 3. Login Page ====================== */
+.login-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.login-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.login-header p {
+    color: var(--color-gray);
+}
+
+.login-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+}
+
+.remember-me input {
+    margin-right: 0.5rem;
+}
+
+.remember-me label {
+    font-size: 0.875rem;
+    color: var(--color-gray-dark);
+}
+
+.login-footer {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.875rem;
+    color: var(--color-gray);
+}
+
+.login-footer a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.login-footer a:hover {
+    text-decoration: underline;
+}
+
+/* ====================== 4. Register Page ====================== */
+.register-steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.register-steps::before {
+    content: '';
+    position: absolute;
+    top: 24px;
+    left: 50px;
+    right: 50px;
+    height: 2px;
+    background-color: var(--color-gray-light);
+    z-index: 1;
+}
+
+.register-step {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.register-step-number {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--color-white);
+    border: 2px solid var(--color-gray-light);
+    margin: 0 auto 0.75rem;
+    font-weight: 600;
+    color: var(--color-gray);
+}
+
+.register-step.active .register-step-number {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+.register-step.completed .register-step-number {
+    background-color: var(--color-success);
+    border-color: var(--color-success);
+    color: var(--color-white);
+}
+
+.register-step-label {
+    font-size: 0.875rem;
+    color: var(--color-gray);
+}
+
+.register-step.active .register-step-label {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.register-step.completed .register-step-label {
+    color: var(--color-success);
+}
+
+.register-form-step {
+    display: none;
+}
+
+.register-form-step.active {
+    display: block;
+}
+
+.register-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+}
+
+.step-back-btn {
+    background-color: var(--color-light);
+    color: var(--color-dark);
+}
+
+.step-back-btn:hover {
+    background-color: var(--color-gray-light);
+}
+
+/* ====================== 5. Password Reset ====================== */
+.password-reset-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.password-reset-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.password-reset-header p {
+    color: var(--color-gray);
+    font-size: 0.875rem;
+}
+
+.reset-sent-icon {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.reset-sent-icon i {
+    font-size: 4rem;
+    color: var(--color-success);
+}
+
+.reset-sent-message {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.reset-sent-message h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.reset-sent-message p {
+    color: var(--color-gray);
+    font-size: 0.875rem;
+}
+
+.password-strength-meter {
+    height: 5px;
+    background-color: var(--color-gray-light);
+    margin-top: 0.5rem;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.password-strength-value {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.password-strength-value.weak {
+    width: 25%;
+    background-color: var(--color-danger);
+}
+
+.password-strength-value.medium {
+    width: 50%;
+    background-color: var(--color-warning);
+}
+
+.password-strength-value.strong {
+    width: 75%;
+    background-color: var(--color-info);
+}
+
+.password-strength-value.very-strong {
+    width: 100%;
+    background-color: var(--color-success);
+}
+
+.password-strength-text {
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+    text-align: right;
+}
+
+.password-strength-text.weak {
+    color: var(--color-danger);
+}
+
+.password-strength-text.medium {
+    color: var(--color-warning);
+}
+
+.password-strength-text.strong {
+    color: var(--color-info);
+}
+
+.password-strength-text.very-strong {
+    color: var(--color-success);
+}
+
+/* ====================== 6. Two-Factor Authentication ====================== */
+.two-factor-container {
+    text-align: center;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.two-factor-icon {
+    margin-bottom: 1.5rem;
+}
+
+.two-factor-icon i {
+    font-size: 4rem;
+    color: var(--color-primary);
+}
+
+.two-factor-header {
+    margin-bottom: 1.5rem;
+}
+
+.two-factor-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.two-factor-header p {
+    color: var(--color-gray);
+    font-size: 0.875rem;
+}
+
+.verification-code-inputs {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.verification-code-input {
+    width: 50px;
+    height: 60px;
+    font-size: 1.5rem;
+    text-align: center;
+    border: 1px solid var(--color-gray-light);
+    border-radius: var(--border-radius);
+    background-color: var(--color-white);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.verification-code-input:focus {
+    border-color: var(--color-primary);
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+.two-factor-actions {
+    margin-top: 1.5rem;
+}
+
+.two-factor-resend {
+    display: block;
+    margin-top: 1rem;
+    color: var(--color-primary);
+    text-decoration: none;
+    font-size: 0.875rem;
+}
+
+.two-factor-resend:hover {
+    text-decoration: underline;
+}
+
+.qr-code-container {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gray-light);
+    border-radius: var(--border-radius);
+    display: inline-block;
+}
+
+.backup-codes {
+    background-color: var(--color-light);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    margin: 1.5rem 0;
+    font-family: monospace;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+}
+
+.backup-code {
+    padding: 0.5rem;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gray-light);
+    border-radius: var(--border-radius-sm);
+}
+
+@media (max-width: 576px) {
+    .verification-code-input {
+        width: 40px;
+        height: 50px;
+        font-size: 1.25rem;
+    }
+    
+    .backup-codes {
+        grid-template-columns: 1fr;
+    }
+} 

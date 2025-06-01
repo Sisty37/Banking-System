@@ -1,0 +1,25 @@
+# Enable URL rewriting
+RewriteEngine On
+
+# Set base directory
+RewriteBase /Banking-System
+
+# Allow direct access to public directory
+RewriteRule ^public/(.*)$ public/$1 [L]
+
+# Explicitly handle common routes
+RewriteRule ^register/?$ index.php [QSA,L]
+RewriteRule ^login/?$ index.php [QSA,L]
+RewriteRule ^logout/?$ index.php [QSA,L]
+RewriteRule ^forgot-password/?$ index.php [QSA,L]
+RewriteRule ^reset-password/?$ index.php [QSA,L]
+RewriteRule ^dashboard/?$ index.php [QSA,L]
+RewriteRule ^profile/?$ index.php [QSA,L]
+RewriteRule ^admin/?$ index.php [QSA,L]
+
+# Allow direct access to files that exist
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Route all other requests to index.php
+RewriteRule ^(.*)$ index.php [QSA,L] 

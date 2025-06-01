@@ -1,269 +1,221 @@
 <?php
-class BillPaymentController {
-    private $billPaymentModel;
-    private $accountModel;
+require_once __DIR__ . '/../core/Controller.php';
+
+class BillPaymentController extends Controller {
     public function __construct() {
-        require_once __DIR__ . '/../models/BillPaymentModel.php';
-        require_once __DIR__ . '/../models/AccountModel.php';
-        $this->billPaymentModel = new BillPaymentModel();
-        $this->accountModel = new AccountModel();
+        // Require login for all bill payment actions
+        $this->requireLogin();
     }
-    public function getBillCategories() {
-        return $this->billPaymentModel->getBillCategories();
-    }
-    public function getBillersByCategory($categoryId) {
-        return $this->billPaymentModel->getBillersByCategory($categoryId);
-    }
-    public function getBillerById($billerId) {
-        return $this->billPaymentModel->getBillerById($billerId);
-    }
-    public function addSavedBiller($userId, $billerId, $accountNickname, $accountNumber) {
-        if (empty($userId) || empty($billerId) || empty($accountNickname) || empty($accountNumber)) {
-            return [
-                'success' => false,
-                'message' => 'All fields are required'
-            ];
-        }
-        $biller = $this->getBillerById($billerId);
-        if (!$biller) {
-            return [
-                'success' => false,
-                'message' => 'Invalid biller selected'
-            ];
-        }
+    
+    public function index() {
+        $userId = $_SESSION['user_id'];
+        
+        // Get user accounts
+        $accountModel = $this->model('Account');
+        $accounts = $accountModel->getAccountsByUserId($userId);
+        
+        // Get pending bills
+        $billModel = $this->model('Bill');
+        $pendingBills = $billModel->getPendingBillsByUserId($userId);
+        
+        // Prepare data for view
         $data = [
-            'user_id' => $userId,
-            'biller_id' => $billerId,
-            'account_nickname' => $accountNickname,
-            'account_number' => $accountNumber
+            'accounts' => $accounts,
+            'pendingBills' => $pendingBills,
+            'user' => $this->getCurrentUser()
         ];
-        $savedBillerId = $this->billPaymentModel->addSavedBiller($data);
-        if ($savedBillerId) {
-            return [
-                'success' => true,
-                'message' => 'Biller saved successfully',
-                'saved_biller_id' => $savedBillerId
+        
+        // Load bill payment view
+        $this->view('bill_payment/index', $data);
+    }
+    
+    public function process() {
+        // Check if it's a POST request
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->redirect('/bill-payment');
+            return;
+        }
+        
+        // Get form data
+        $billId = $_POST['bill_id'] ?? '';
+        $accountId = $_POST['account_id'] ?? '';
+        $amount = $_POST['amount'] ?? '';
+        
+        // Validate data
+        $errors = [];
+        
+        if (empty($billId)) {
+            $errors[] = "Bill information is required.";
+        }
+        
+        if (empty($accountId)) {
+            $errors[] = "Account is required.";
+        }
+        
+        if (empty($amount) || !is_numeric($amount) || $amount <= 0) {
+            $errors[] = "Valid amount is required.";
+        }
+        
+        // If there are errors, redirect back with errors
+        if (!empty($errors)) {
+            $_SESSION['errors'] = $errors;
+            $_SESSION['old_input'] = $_POST;
+            $this->redirect('/bill-payment');
+            return;
+        }
+        
+        // Process bill payment
+        try {
+            $billModel = $this->model('Bill');
+            $accountModel = $this->model('Account');
+            $transactionModel = $this->model('Transaction');
+            $notificationModel = $this->model('Notification');
+            
+            // Get bill details
+            $bill = $billModel->getBillById($billId);
+            
+            if (!$bill) {
+                throw new Exception("Bill not found.");
+            }
+            
+            // Get account details
+            $account = $accountModel->getAccountById($accountId);
+            
+            if (!$account) {
+                throw new Exception("Account not found.");
+            }
+            
+            // Check if account belongs to user
+            if ($account['user_id'] != $_SESSION['user_id']) {
+                throw new Exception("Invalid account.");
+            }
+            
+            // Check if account has sufficient balance
+            if ($account['balance'] < $amount) {
+                throw new Exception("Insufficient balance in the account.");
+            }
+            
+            // Begin transaction
+            $db = new Database();
+            $db->beginTransaction();
+            
+            // Generate reference number
+            $referenceNumber = $transactionModel->generateReferenceNumber();
+            
+            // Create transaction record
+            $transactionData = [
+                'account_id' => $accountId,
+                'user_id' => $_SESSION['user_id'],
+                'transaction_type' => 'bill_payment',
+                'amount' => $amount,
+                'description' => "Payment for " . $bill['biller_name'] . " - " . $bill['bill_number'],
+                'reference_number' => $referenceNumber,
+                'status' => 'completed'
             ];
-        } else {
-            return [
-                'success' => false,
-                'message' => 'Failed to save biller'
+            
+            $transactionId = $transactionModel->create($transactionData);
+            
+            if (!$transactionId) {
+                throw new Exception("Failed to create transaction record.");
+            }
+            
+            // Update account balance
+            $success = $accountModel->updateBalance($accountId, -$amount);
+            
+            if (!$success) {
+                throw new Exception("Failed to update account balance.");
+            }
+            
+            // Update bill status to paid
+            $success = $billModel->updateStatus($billId, 'completed');
+            
+            if (!$success) {
+                throw new Exception("Failed to update bill status.");
+            }
+            
+            // Record payment date and transaction ID
+            $query = "UPDATE {$billModel->table} SET 
+                        transaction_id = :transaction_id,
+                        payment_date = NOW(), 
+                        updated_at = NOW() 
+                      WHERE id = :bill_id";
+            
+            $params = [
+                ':transaction_id' => $transactionId,
+                ':bill_id' => $billId
             ];
+            
+            $success = $db->execute($query, $params);
+            
+            if (!$success) {
+                throw new Exception("Failed to record payment details.");
+            }
+            
+            // Create notification
+            $notificationModel->createBillPaymentNotification(
+                $_SESSION['user_id'],
+                $bill['biller_name'],
+                $amount,
+                $account['account_number']
+            );
+            
+            // Commit transaction
+            $db->commit();
+            
+            // Set success message
+            $this->setFlashMessage('success', 'Bill payment processed successfully.');
+            
+            // Redirect to success page
+            $this->redirect('/bill-payment/success?id=' . $transactionId);
+            
+        } catch (Exception $e) {
+            // Rollback transaction if an error occurred
+            if (isset($db)) {
+                $db->rollback();
+            }
+            
+            // Set error message and redirect back
+            $this->setFlashMessage('error', 'Bill payment failed: ' . $e->getMessage());
+            $_SESSION['old_input'] = $_POST;
+            $this->redirect('/bill-payment');
         }
     }
-    public function getUserSavedBillers($userId) {
-        return $this->billPaymentModel->getUserSavedBillers($userId);
-    }
-    public function updateSavedBiller($savedBillerId, $userId, $accountNickname, $accountNumber) {
-        if (empty($savedBillerId) || empty($userId) || empty($accountNickname) || empty($accountNumber)) {
-            return [
-                'success' => false,
-                'message' => 'All fields are required'
-            ];
+    
+    public function success() {
+        $transactionId = $_GET['id'] ?? '';
+        
+        if (empty($transactionId)) {
+            $this->redirect('/bill-payment');
+            return;
         }
-        $savedBiller = $this->billPaymentModel->getSavedBillerById($savedBillerId);
-        if (!$savedBiller || $savedBiller['user_id'] != $userId) {
-            return [
-                'success' => false,
-                'message' => 'Invalid saved biller'
-            ];
+        
+        // Get transaction details
+        $transactionModel = $this->model('Transaction');
+        $transaction = $transactionModel->getTransactionById($transactionId);
+        
+        if (!$transaction || $transaction['transaction_type'] !== 'bill_payment') {
+            $this->setFlashMessage('error', 'Invalid transaction.');
+            $this->redirect('/bill-payment');
+            return;
         }
+        
+        // Get account details
+        $accountModel = $this->model('Account');
+        $account = $accountModel->getAccountById($transaction['account_id']);
+        
+        // Get bill details
+        $billModel = $this->model('Bill');
+        $bill = $billModel->getBillByTransactionId($transactionId);
+        
+        // Prepare data for view
         $data = [
-            'saved_biller_id' => $savedBillerId,
-            'user_id' => $userId,
-            'account_nickname' => $accountNickname,
-            'account_number' => $accountNumber
+            'transaction' => $transaction,
+            'account' => $account,
+            'bill' => $bill,
+            'user' => $this->getCurrentUser()
         ];
-        $result = $this->billPaymentModel->updateSavedBiller($data);
-        if ($result) {
-            return [
-                'success' => true,
-                'message' => 'Biller updated successfully'
-            ];
-        } else {
-            return [
-                'success' => false,
-                'message' => 'Failed to update biller'
-            ];
-        }
-    }
-    public function deleteSavedBiller($savedBillerId, $userId) {
-        if (empty($savedBillerId) || empty($userId)) {
-            return [
-                'success' => false,
-                'message' => 'Invalid request'
-            ];
-        }
-        $savedBiller = $this->billPaymentModel->getSavedBillerById($savedBillerId);
-        if (!$savedBiller || $savedBiller['user_id'] != $userId) {
-            return [
-                'success' => false,
-                'message' => 'Invalid saved biller'
-            ];
-        }
-        $result = $this->billPaymentModel->deleteSavedBiller($savedBillerId, $userId);
-        if ($result) {
-            return [
-                'success' => true,
-                'message' => 'Biller deleted successfully'
-            ];
-        } else {
-            return [
-                'success' => false,
-                'message' => 'Failed to delete biller'
-            ];
-        }
-    }
-    public function makeBillPayment($userId, $billerId, $accountNumber, $amount, $sourceAccountId, $description = '') {
-        if (empty($userId) || empty($billerId) || empty($accountNumber) || empty($amount) || empty($sourceAccountId)) {
-            return [
-                'success' => false,
-                'message' => 'All fields are required'
-            ];
-        }
-        if (!is_numeric($amount) || $amount <= 0) {
-            return [
-                'success' => false,
-                'message' => 'Please enter a valid amount'
-            ];
-        }
-        $biller = $this->getBillerById($billerId);
-        if (!$biller) {
-            return [
-                'success' => false,
-                'message' => 'Invalid biller selected'
-            ];
-        }
-        $account = $this->accountModel->getAccountById($sourceAccountId);
-        if (!$account || $account['user_id'] != $userId) {
-            return [
-                'success' => false,
-                'message' => 'Invalid source account'
-            ];
-        }
-        if ($account['balance'] < $amount) {
-            return [
-                'success' => false,
-                'message' => 'Insufficient funds in your account'
-            ];
-        }
-        $data = [
-            'user_id' => $userId,
-            'biller_id' => $billerId,
-            'account_number' => $accountNumber,
-            'amount' => $amount,
-            'source_account_id' => $sourceAccountId,
-            'description' => $description ?: 'Bill payment to ' . $biller['biller_name']
-        ];
-        $paymentId = $this->billPaymentModel->makeBillPayment($data);
-        if ($paymentId) {
-            $payment = $this->billPaymentModel->getBillPaymentById($paymentId);
-            return [
-                'success' => true,
-                'message' => 'Payment successful',
-                'payment_id' => $paymentId,
-                'reference' => $payment['reference_number']
-            ];
-        } else {
-            return [
-                'success' => false,
-                'message' => 'Payment failed. Please try again later.'
-            ];
-        }
-    }
-    public function getBillPaymentHistory($userId) {
-        return $this->billPaymentModel->getBillPaymentHistory($userId);
-    }
-    public function schedulePayment($userId, $billerId, $accountNumber, $amount, $sourceAccountId, $scheduledDate, $recurring = false, $frequency = '', $description = '') {
-        if (empty($userId) || empty($billerId) || empty($accountNumber) || empty($amount) || empty($sourceAccountId) || empty($scheduledDate)) {
-            return [
-                'success' => false,
-                'message' => 'All required fields must be filled'
-            ];
-        }
-        if (!is_numeric($amount) || $amount <= 0) {
-            return [
-                'success' => false,
-                'message' => 'Please enter a valid amount'
-            ];
-        }
-        $currentDate = date('Y-m-d');
-        if (strtotime($scheduledDate) < strtotime($currentDate)) {
-            return [
-                'success' => false,
-                'message' => 'Scheduled date cannot be in the past'
-            ];
-        }
-        $biller = $this->getBillerById($billerId);
-        if (!$biller) {
-            return [
-                'success' => false,
-                'message' => 'Invalid biller selected'
-            ];
-        }
-        $account = $this->accountModel->getAccountById($sourceAccountId);
-        if (!$account || $account['user_id'] != $userId) {
-            return [
-                'success' => false,
-                'message' => 'Invalid source account'
-            ];
-        }
-        if ($recurring && empty($frequency)) {
-            return [
-                'success' => false,
-                'message' => 'Please select a frequency for recurring payments'
-            ];
-        }
-        $data = [
-            'user_id' => $userId,
-            'biller_id' => $billerId,
-            'account_number' => $accountNumber,
-            'amount' => $amount,
-            'source_account_id' => $sourceAccountId,
-            'scheduled_date' => $scheduledDate,
-            'recurring' => $recurring ? 1 : 0,
-            'frequency' => $frequency,
-            'description' => $description ?: 'Scheduled payment to ' . $biller['biller_name']
-        ];
-        $scheduledPaymentId = $this->billPaymentModel->schedulePayment($data);
-        if ($scheduledPaymentId) {
-            return [
-                'success' => true,
-                'message' => 'Payment scheduled successfully',
-                'scheduled_payment_id' => $scheduledPaymentId
-            ];
-        } else {
-            return [
-                'success' => false,
-                'message' => 'Failed to schedule payment'
-            ];
-        }
-    }
-    public function getScheduledPayments($userId) {
-        return $this->billPaymentModel->getScheduledPayments($userId);
-    }
-    public function cancelScheduledPayment($scheduledPaymentId, $userId) {
-        if (empty($scheduledPaymentId) || empty($userId)) {
-            return [
-                'success' => false,
-                'message' => 'Invalid request'
-            ];
-        }
-        $result = $this->billPaymentModel->cancelScheduledPayment($scheduledPaymentId, $userId);
-        if ($result) {
-            return [
-                'success' => true,
-                'message' => 'Scheduled payment cancelled successfully'
-            ];
-        } else {
-            return [
-                'success' => false,
-                'message' => 'Failed to cancel scheduled payment'
-            ];
-        }
-    }
-    public function getBillPaymentStatistics($userId) {
-        return $this->billPaymentModel->getBillPaymentStatistics($userId);
+        
+        // Load bill payment success view
+        $this->view('bill_payment/bill_success', $data);
     }
 }
-?> 

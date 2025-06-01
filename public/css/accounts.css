@@ -1,0 +1,221 @@
+/* 
+ * Banking System - Accounts Stylesheet
+ * This file contains styles specific to the accounts section of the banking system
+ */
+
+/* Account card variations based on account type */
+.account-card.savings {
+  background: linear-gradient(135deg, var(--savings-color), #3a0ca3);
+}
+
+.account-card.checking {
+  background: linear-gradient(135deg, var(--checking-color), #3a0ca3);
+}
+
+.account-card.fixed-deposit {
+  background: linear-gradient(135deg, var(--fixed-deposit-color), #3a0ca3);
+}
+
+.account-card.money-market {
+  background: linear-gradient(135deg, var(--money-market-color), #3a0ca3);
+}
+
+/* Account details page header backgrounds */
+.account-header.savings {
+  background: linear-gradient(135deg, var(--savings-color), #3a0ca3);
+}
+
+.account-header.checking {
+  background: linear-gradient(135deg, var(--checking-color), #3a0ca3);
+}
+
+.account-header.fixed-deposit {
+  background: linear-gradient(135deg, var(--fixed-deposit-color), #3a0ca3);
+}
+
+.account-header.money-market {
+  background: linear-gradient(135deg, var(--money-market-color), #3a0ca3);
+}
+
+/* Custom account icons */
+.account-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.account-icon i {
+  font-size: 1.5rem;
+  color: white;
+}
+
+/* Enhanced account info items */
+.account-info .info-item.balance {
+  border-left: 4px solid var(--success);
+}
+
+.account-info .info-item.available {
+  border-left: 4px solid var(--primary-color);
+}
+
+.account-info .info-item.date {
+  border-left: 4px solid var(--info);
+}
+
+/* Account activity list enhancements */
+.no-transactions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  text-align: center;
+  color: var(--gray-600);
+}
+
+.no-transactions i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: var(--gray-400);
+}
+
+.no-transactions p {
+  margin-bottom: 1.5rem;
+  font-size: 1.125rem;
+}
+
+/* Account form customizations */
+.requirement-item.savings {
+  border-left-color: var(--savings-color);
+}
+
+.requirement-item.checking {
+  border-left-color: var(--checking-color);
+}
+
+.requirement-item.fixed-deposit {
+  border-left-color: var(--fixed-deposit-color);
+}
+
+.requirement-item.money-market {
+  border-left-color: var(--money-market-color);
+}
+
+/* Unique styling for each account type's heading */
+.requirement-item.savings h4 {
+  color: var(--savings-color);
+}
+
+.requirement-item.checking h4 {
+  color: var(--checking-color);
+}
+
+.requirement-item.fixed-deposit h4 {
+  color: var(--fixed-deposit-color);
+}
+
+.requirement-item.money-market h4 {
+  color: var(--money-market-color);
+}
+
+/* Enhanced empty state for accounts list */
+.card-body.text-center {
+  padding: 3rem 2rem;
+}
+
+.card-body.text-center i {
+  color: var(--gray-400);
+  margin-bottom: 1.5rem;
+}
+
+.card-body.text-center p {
+  color: var(--gray-600);
+  font-size: 1.125rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Account statement page */
+.statement-header {
+  background-color: var(--gray-100);
+  padding: 2rem;
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+}
+
+.statement-info {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .statement-info {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.statement-actions {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.print-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--gray-800);
+  color: white;
+}
+
+.print-btn:hover {
+  background-color: var(--gray-900);
+}
+
+.download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--success);
+  color: white;
+}
+
+.download-btn:hover {
+  background-color: var(--success-dark);
+}
+
+/* Account type badges */
+.account-type-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--border-radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.account-type-badge.savings {
+  background-color: var(--savings-color);
+  color: white;
+}
+
+.account-type-badge.checking {
+  background-color: var(--checking-color);
+  color: white;
+}
+
+.account-type-badge.fixed-deposit {
+  background-color: var(--fixed-deposit-color);
+  color: white;
+}
+
+.account-type-badge.money-market {
+  background-color: var(--money-market-color);
+  color: white;
+} 
